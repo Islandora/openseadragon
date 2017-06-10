@@ -1,0 +1,16 @@
+{#
+/**
+ * @file
+ * Default theme implementation to display a formatted openseadragon image field.
+ *
+ * Available variables:
+ * - attributes: Container attributes.
+ *
+ * @see template_preprocess_openseadragon_formatter()
+ *
+ * @ingroup themeable
+ */
+#}
+{{ attach_library('libraries/openseadragon') }}
+{{ attach_library('openseadragon/init') }}
+<div {{ attributes }}></div>

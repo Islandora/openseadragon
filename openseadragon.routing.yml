@@ -1,0 +1,7 @@
+openseadragon.admin_settings:
+  path: '/admin/config/media/openseadragon'
+  defaults:
+    _form: '\Drupal\openseadragon\Form\OpenSeadragonSettingsForm'
+    _title: 'OpenSeadragon settings'
+  requirements:
+    _permission: 'administer site configuration'

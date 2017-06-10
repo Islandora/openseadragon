@@ -1,0 +1,23 @@
+{
+  "name": "OpenSeadragon",
+  "type": "asset",
+  "vendor_url": "https://openseadragon.github.io/",
+  "download_url": "https://github.com/openseadragon/openseadragon/master/zipball",
+  "variants": {
+    "minified": {
+      "js": {
+        "openseadragon.min.js": {}
+      }
+    }
+  },
+  "js": {
+    "openseadragon.js": {}
+  },
+  "version_detector": {
+    "id": "line_pattern",
+    "configuration": {
+      "file": "openseadragon.js",
+      "pattern": "/openseadragon ([0-9\\.-]+)/"
+    }
+  }
+}

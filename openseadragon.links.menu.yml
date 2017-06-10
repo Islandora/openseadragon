@@ -1,0 +1,5 @@
+openseadragon.admin_settings:
+  title: 'OpenSeadragon settings'
+  description: 'Configure the OpenSeadragon viewer settings.'
+  parent: system.admin_config_media
+  route_name: openseadragon.admin_settings

@@ -1,0 +1,11 @@
+init:
+  version: 1.x
+  js:
+    js/openseadragon_viewer.js: {}
+  css:
+    component:
+      css/openseadragon.css: {}
+  dependencies:
+      - core/jquery
+      - core/jquery-once
+      - core/drupalSettings
