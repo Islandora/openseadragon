@@ -1,0 +1,34 @@
+{
+  "name": "islandora/openseadragon",
+  "description": "OpenSeadragon",
+  "type": "drupal-module",
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "keywords": ["Drupal", "Islandora", "OpenSeadragon"],
+  "license": "GPL-2.0+",
+  "homepage": "https://github.com/Islandora-CLAW/openseadragon",
+  "support": {
+    "issues": "https://github.com/islandora-claw/CLAW/issues",
+    "irc": "irc://irc.freenode.net/islandora"
+  },
+  "require": {
+    "drupal/libraries": "dev-8.x-3.x"
+  },
+  "authors": [
+    {
+      "name": "Islandora Foundation",
+      "email": "community@islandora.ca",
+      "role": "Owner"
+    },
+    {
+      "name": "Daniel Lamb",
+      "email": "dlamb@islandora.ca",
+      "role": "Maintainer"
+    },
+    {
+      "name": "Jared Whiklo",
+      "email": "jwhiklo@gmail.com",
+      "role": "Maintainer"
+    }
+  ]
+}
