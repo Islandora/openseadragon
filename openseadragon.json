@@ -2,7 +2,7 @@
   "name": "OpenSeadragon",
   "type": "asset",
   "vendor_url": "https://openseadragon.github.io/",
-  "download_url": "https://github.com/openseadragon/openseadragon/master/zipball",
+  "download_url": "https://github.com/openseadragon/openseadragon/zipball/master",
   "variants": {
     "minified": {
       "js": {
