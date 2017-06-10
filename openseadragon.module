@@ -89,7 +89,7 @@ function template_preprocess_openseadragon_formatter(&$variables) {
         'tileSources' => $tile_source,
       ] + $viewer_settings,
     ];
-    
+
     $variables['attributes'] = new Attribute();
     $variables['attributes']['class'] = $classes_array;
     $variables['attributes']['id'] = $openseadragon_viewer_id;

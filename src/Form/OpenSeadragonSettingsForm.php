@@ -50,14 +50,7 @@ class OpenSeadragonSettingsForm extends ConfigFormBase {
       ]
     );
     $config = $this->config('openseadragon.settings');
-    $settings = $config->get('viewer_options');
-    $default_settings = $config->get('default_options');
-    if (!is_null($settings)) {
-      $settings = $settings + $default_settings;
-    }
-    else {
-      $settings = $default_settings;
-    }
+    $settings = openseadragon_get_settings();
 
     $form['image_server_settings'] = [
       '#type' => 'details',
