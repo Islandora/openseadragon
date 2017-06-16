@@ -3,9 +3,12 @@
 namespace Drupal\openseadragon\Form;
 
 use Drupal\Component\Utility\UrlHelper;
+use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\openseadragon\ConfigInterface;
 use GuzzleHttp\Exception\ClientException;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * OpenSeadragon Settings Form.
@@ -13,6 +16,36 @@ use GuzzleHttp\Exception\ClientException;
  * TODO: Some of these settings could be moved to the display level.
  */
 class OpenSeadragonSettingsForm extends ConfigFormBase {
+
+  /**
+   * OpenSeadragon Config.
+   *
+   * @var \Drupal\openseadragon\ConfigInterface
+   */
+  private $seadragonConfig;
+
+  /**
+   * Constructs a \Drupal\system\ConfigFormBase object.
+   *
+   * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
+   *   The factory for configuration objects.
+   * @param \Drupal\openseadragon\ConfigInterface $seadragon_config
+   *   A OpenSeadragon config object.
+   */
+  public function __construct(ConfigFactoryInterface $config_factory, ConfigInterface $seadragon_config) {
+    $this->setConfigFactory($config_factory);
+    $this->seadragonConfig = $seadragon_config;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container) {
+    return new static(
+      $container->get('config.factory'),
+      $container->get('openseadragon.config')
+    );
+  }
 
   /**
    * {@inheritdoc}
@@ -49,8 +82,8 @@ class OpenSeadragonSettingsForm extends ConfigFormBase {
         'ABSOLUTE',
       ]
     );
-    $config = $this->config('openseadragon.settings');
-    $settings = openseadragon_get_settings();
+
+    $settings = $this->seadragonConfig->getSettings();
 
     $form['image_server_settings'] = [
       '#type' => 'details',
@@ -1028,12 +1061,10 @@ class OpenSeadragonSettingsForm extends ConfigFormBase {
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $config = $this->configFactory->getEditable('openseadragon.settings');
-    error_log("Submit form -> " . var_export($form_state->getValue('openseadragon_settings'), TRUE));
     $this->normalizeSettings($form_state->getValue('openseadragon_settings'));
     // Get default to match array formatting.
-    $default_settings = $config->get('default_options');
+    $default_settings = $this->seadragonConfig->getDefaultSettings();
     $this->filterSettings($form_state->getValue('openseadragon_settings'), $default_settings);
-    error_log("Submit altered form -> " . var_export($form_state->getValue('openseadragon_settings'), TRUE));
     $config->set('viewer_options', $form_state->getValue('openseadragon_settings'));
 
     if (!empty($form_state->getValue('iiif_server'))) {

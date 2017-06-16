@@ -1,0 +1,7 @@
+services:
+  openseadragon.config:
+    class: Drupal\openseadragon\Config
+    arguments: ['@config.factory']
+  openseadragon.fileinfo:
+    class: Drupal\openseadragon\File\FileInformation
+    arguments: ['@file.mime_type.guesser', '@stream_wrapper_manager']

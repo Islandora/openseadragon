@@ -7,7 +7,6 @@
 
 use Drupal\Core\Template\Attribute;
 use Drupal\Core\Url;
-use Drupal\Core\Entity\EntityInterface;
 
 /**
  * Implements hook_libraries_info().
@@ -59,7 +58,8 @@ function template_preprocess_openseadragon_formatter(&$variables) {
   $item = $variables['item'];
   $entity = $variables['entity'];
   // Load the global settings.
-  $config = \Drupal::config('openseadragon.settings');
+  $config = \Drupal::service('openseadragon.config');
+  $fileinfo_service = \Drupal::service('openseadragon.fileinfo');
 
   // TODO: Once Libraries API is finished find a function for this.
   $base_library_path = 'sites/all/assets/vendor';
@@ -69,20 +69,21 @@ function template_preprocess_openseadragon_formatter(&$variables) {
   $openseadragon_viewer_id = 'openseadragon-viewer-' . $id;
   $field_name = $item->getParent()->getName();
 
-  $resource = get_file_data($field_name, $entity);
+  $resource = $fileinfo_service->getFileData($field_name, $entity);
 
   $classes_array = ['openseadragon-viewer'];
-  $viewer_settings = openseadragon_get_settings(TRUE);
+  $viewer_settings = $config->getSettings(TRUE);
+  $iiif_address = $config->getIiifAddress();
 
-  if ($config->get('iiif_server') != '') {
+  if (!is_null($iiif_address) && !empty($iiif_address)) {
     // Strip the root off to get the relative to root file path.
     $full_path = str_replace(DRUPAL_ROOT . '/', '', $resource['full_path']);
 
-    $tile_source = rtrim($config->get('iiif_server'), '/') . '/' . urlencode($full_path);
+    $tile_source = rtrim($iiif_address, '/') . '/' . urlencode($full_path);
 
     $variables['#attached']['drupalSettings']['openseadragon'] = [
-      'basePath' => Url::fromUri($config->get('iiif_server')),
-      'fitToAspectRatio' => $config->get('fit_to_aspect_ratio'),
+      'basePath' => Url::fromUri($iiif_address),
+      'fitToAspectRatio' => $viewer_settings['fit_to_aspect_ratio'],
       'options' => [
         'id' => $openseadragon_viewer_id,
         'prefixUrl' => file_create_url("{$base_library_path}/openseadragon/images/"),
@@ -94,72 +95,4 @@ function template_preprocess_openseadragon_formatter(&$variables) {
     $variables['attributes']['class'] = $classes_array;
     $variables['attributes']['id'] = $openseadragon_viewer_id;
   }
-}
-
-/**
- * Get the full_path and mime-type to the file.
- *
- * @param string $field_name
- *   The file field name on the entity.
- * @param \Drupal\Core\Entity\EntityInterface $entity
- *   The entity.
- *
- * @return array
- *   Data about the file contents, keys are (mime_type and full_path).
- */
-function get_file_data($field_name, EntityInterface $entity) {
-  $output = [];
-  $field_value = $entity->get($field_name)->getValue();
-  if (isset($field_value['0']['target_id'])) {
-    // Load the image and take file uri.
-    $fid = $field_value[0]['target_id'];
-    $file = file_load($fid);
-
-    $uri = $file->getFileUri();
-
-    $mime_type = $file->getMimeType();
-    if (strpos($mime_type, 'image/') != 0) {
-      // Try a better mimetype guesser.
-      $mime_type = \Drupal::service('file.mime_type.guesser')->guess($uri);
-      if (strpos($mime_type, 'image/') != 0) {
-        // If we still don't have an image. Exit.
-        return $output;
-      }
-    }
-    $output['mime_type'] = $mime_type;
-
-    $stream_wrapper_manager = \Drupal::service('stream_wrapper_manager')->getViaUri($uri);
-    $output['full_path'] = $stream_wrapper_manager->realpath();
-  }
-
-  return $output;
-}
-
-/**
- * Get OpenSeadragon settings.
- *
- * @param bool $filter_null
- *   Strip NULL values, used when returning to Javascript.
- *
- * @return array
- *   Configuration options for OpenSeadragon.
- */
-function openseadragon_get_settings($filter_null = TRUE) {
-  $config = \Drupal::config('openseadragon.settings');
-  $settings = $config->get('viewer_options');
-  $default_settings = $config->get('default_options');
-  if (!is_null($settings)) {
-    $settings = $settings + $default_settings;
-  }
-  else {
-    $settings = $default_settings;
-  }
-  // We have to filter NULL values, to prevent issues with javascript.
-  $is_not_null = function ($val) {
-    return !is_null($val);
-  };
-  if ($filter_null) {
-    $settings = array_filter($settings, $is_not_null);
-  }
-  return $settings;
 }
