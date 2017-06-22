@@ -92,7 +92,7 @@ class OpenSeadragonSettingsForm extends ConfigFormBase {
       'iiif_server' => [
         '#type' => 'textfield',
         '#title' => t('IIIF Image server location'),
-        '#default_value' => $config->get('iiif_server'),
+        '#default_value' => $this->seadragonConfig->getIiifAddress(),
         '#required' => TRUE,
         '#description' => t('Please enter the image server location without trailing slash. eg:  http://www.example.org/iiif/2.'),
       ],
