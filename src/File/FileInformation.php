@@ -2,7 +2,7 @@
 
 namespace Drupal\openseadragon\File;
 
-use Drupal\Core\Entity\EntityInterface;
+use Drupal\file\Entity\File;
 use Drupal\Core\StreamWrapper\StreamWrapperManagerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\File\MimeType\MimeTypeGuesserInterface;
@@ -58,30 +58,21 @@ class FileInformation implements FileInformationInterface {
   /**
    * {@inheritdoc}
    */
-  public function getFileData($field_name, EntityInterface $entity) {
+  public function getFileData(File $file) {
     $output = [];
-    $field_value = $entity->get($field_name)->getValue();
-    if (isset($field_value['0']['target_id'])) {
-      // Load the image and take file uri.
-      $fid = $field_value[0]['target_id'];
-      $file = file_load($fid);
-
-      $uri = $file->getFileUri();
-
-      $mime_type = $file->getMimeType();
-      if (strpos($mime_type, 'image/') != 0) {
-        // Try a better mimetype guesser.
-        $mime_type = $this->mimetypeGuesser->guess($uri);
-        if (strpos($mime_type, 'image/') != 0) {
-          // If we still don't have an image. Exit.
-          return $output;
-        }
+    $uri = $file->getFileUri();
+    $mime_type = $file->getMimeType();
+    if (strpos($mime_type, 'image/') === FALSE) {
+      // Try a better mimetype guesser.
+      $mime_type = $this->mimetypeGuesser->guess($uri);
+      if (strpos($mime_type, 'image/') === FALSE) {
+        // If we still don't have an image. Exit.
+        return $output;
       }
-      $output['mime_type'] = $mime_type;
-
-      $stream_wrapper_manager = $this->streamWrapper->getViaUri($uri);
-      $output['full_path'] = $stream_wrapper_manager->realpath();
     }
+    $output['mime_type'] = $mime_type;
+    $stream_wrapper_manager = $this->streamWrapper->getViaUri($uri);
+    $output['full_path'] = $stream_wrapper_manager->realpath();
     return $output;
   }
 

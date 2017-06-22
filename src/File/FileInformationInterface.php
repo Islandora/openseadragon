@@ -2,7 +2,7 @@
 
 namespace Drupal\openseadragon\File;
 
-use Drupal\Core\Entity\EntityInterface;
+use Drupal\file\Entity\File;
 
 /**
  * Class to get file path information for dereferencing files in Entity fields.
@@ -12,14 +12,12 @@ interface FileInformationInterface {
   /**
    * Get the full_path and mime-type to the file.
    *
-   * @param string $field_name
-   *   The file field name on the entity.
-   * @param \Drupal\Core\Entity\EntityInterface $entity
-   *   The entity.
+   * @param \Drupal\file\Entity\File $file
+   *   The file to get information about.
    *
    * @return array
-   *   Data about the file contents, keys are (mime_type and full_path).
+   *   Data about the file contents, required keys are mime_type and full_path.
    */
-  public function getFileData($field_name, EntityInterface $entity);
+  public function getFileData(File $file);
 
 }
