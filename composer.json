@@ -12,7 +12,7 @@
     "irc": "irc://irc.freenode.net/islandora"
   },
   "require": {
-    "drupal/libraries": "dev-8.x-3.x"
+    "drupal/libraries": "dev-3.x"
   },
   "authors": [
     {
