@@ -1,0 +1,9 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: node.open_seadragon
+label: 'Open Seadragon'
+targetEntityType: node
+cache: true
