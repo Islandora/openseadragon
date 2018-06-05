@@ -20,11 +20,9 @@
         attach: function(context, settings) {
             // Use custom element #id if set.
             base = '#' + settings.openseadragon.options.id;
-            if (Drupal.openSeadragonViewer[base] === undefined) {
-              //  $(base, document).once('openSeadragonViewer', function () {
-                    Drupal.openSeadragonViewer[base] = new Drupal.openSeadragonViewer(base, settings.openseadragon);
-              //  });
-            }
+            $(base, context).once('openSeadragonViewer').each(function () {
+                  Drupal.openSeadragonViewer[base] = new Drupal.openSeadragonViewer(base, settings.openseadragon);
+            });
         },
         detach: function() {
             $(base).removeClass('openSeadragonViewer-processed');
