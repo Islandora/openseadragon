@@ -2,8 +2,8 @@
 
 namespace Drupal\openseadragon\File;
 
+use Drupal\Core\Url;
 use Drupal\file\Entity\File;
-use Drupal\Core\StreamWrapper\StreamWrapperManagerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\File\MimeType\MimeTypeGuesserInterface;
 
@@ -13,13 +13,6 @@ use Symfony\Component\HttpFoundation\File\MimeType\MimeTypeGuesserInterface;
  * @package Drupal\openseadragon\File
  */
 class FileInformation implements FileInformationInterface {
-
-  /**
-   * StreamWrapper to dereference uris to path (ie. public://).
-   *
-   * @var \Drupal\Core\StreamWrapper\StreamWrapperManagerInterface
-   */
-  private $streamWrapper;
 
   /**
    * File MimeType Guesser to use extension to determine file type.
@@ -33,12 +26,9 @@ class FileInformation implements FileInformationInterface {
    *
    * @param \Symfony\Component\HttpFoundation\File\MimeType\MimeTypeGuesserInterface $mimeTypeGuesser
    *   File mimetype guesser interface.
-   * @param \Drupal\Core\StreamWrapper\StreamWrapperManagerInterface $streamWrapperManager
-   *   Stream Wrapper manager interface.
    */
-  public function __construct(MimeTypeGuesserInterface $mimeTypeGuesser, StreamWrapperManagerInterface $streamWrapperManager) {
+  public function __construct(MimeTypeGuesserInterface $mimeTypeGuesser) {
     $this->mimetypeGuesser = $mimeTypeGuesser;
-    $this->streamWrapper = $streamWrapperManager;
   }
 
   /**
@@ -50,9 +40,7 @@ class FileInformation implements FileInformationInterface {
    * @return static
    */
   public static function create(ContainerInterface $container) {
-    return new static($container->get('file.mime_type.guesser'),
-      $container->get('stream_wrapper_manager')
-    );
+    return new static($container->get('file.mime_type.guesser'));
   }
 
   /**
@@ -71,8 +59,12 @@ class FileInformation implements FileInformationInterface {
       }
     }
     $output['mime_type'] = $mime_type;
-    $stream_wrapper_manager = $this->streamWrapper->getViaUri($uri);
-    $output['full_path'] = $stream_wrapper_manager->realpath();
+
+    // Get the path to the file by stripping off the site's base url.
+    // Heads up, this is already url encoded, so no need to do it again.
+    $base = Url::fromRoute('<front>', [], ['absolute' => TRUE])->toString();
+    $file_url = $file->url();
+    $output['full_path'] = str_replace($base, "", $file_url);
     return $output;
   }
 
