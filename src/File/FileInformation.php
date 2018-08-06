@@ -59,12 +59,7 @@ class FileInformation implements FileInformationInterface {
       }
     }
     $output['mime_type'] = $mime_type;
-
-    // Get the path to the file by stripping off the site's base url.
-    // Heads up, this is already url encoded, so no need to do it again.
-    $base = Url::fromRoute('<front>', [], ['absolute' => TRUE])->toString();
-    $file_url = $file->url();
-    $output['full_path'] = str_replace($base, "", $file_url);
+    $output['full_path'] = $file->url();
     return $output;
   }
 
