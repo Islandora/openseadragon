@@ -1,5 +1,5 @@
 # OpenSeadragon
-[![Build Status](https://travis-ci.org/Islandora-CLAW/openseadragon.png?branch=8.x-1.x)](https://travis-ci.org/Islandora-CLAW/openseadragon)
+[![Build Status](https://travis-ci.com/Islandora-CLAW/openseadragon.png?branch=8.x-1.x)](https://travis-ci.com/Islandora-CLAW/openseadragon)
 [![Contribution Guidelines](http://img.shields.io/badge/CONTRIBUTING-Guidelines-blue.svg)](./CONTRIBUTING.md)
 [![LICENSE](https://img.shields.io/badge/license-GPLv2-blue.svg?style=flat-square)](./LICENSE)
 
