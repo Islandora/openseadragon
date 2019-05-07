@@ -111,7 +111,6 @@ function template_preprocess_openseadragon_formatter(&$variables) {
  */
 function islandora_image_file_mimetype_mapping_alter(&$mapping) {
   // Add new MIME type 'image/jp2'.
-  error_log("adding in mimetype mappings");
   if (!in_array('image/jp2', $mapping['mimetypes'])) {
     $mapping['mimetypes']['JP2'] = 'image/jp2';
     $mapping['extensions']['jp2'] = 'JP2';
