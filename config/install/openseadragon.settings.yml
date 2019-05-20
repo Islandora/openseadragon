@@ -1,4 +1,5 @@
 default_options:
+  fit_to_aspect_ratio : FALSE
   tabIndex : 0
   debugMode : FALSE
   debugGridColor : '#437AB2'
