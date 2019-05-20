@@ -105,7 +105,7 @@ class OpenSeadragonSettingsForm extends ConfigFormBase {
       'fit_to_aspect_ratio' => [
         '#type' => 'checkbox',
         '#title' => t('Constrain image to viewport'),
-        '#default_value' => $settings['fit_to_aspect_ratio'],
+        '#default_value' => isset($settings['fit_to_aspect_ratio']) ? $settings['fit_to_aspect_ratio'] : '',
         '#description' => t('On the initial page load, the entire image will be visible in the viewport.'),
       ],
       // We don't provide "id" as configurable to users.
@@ -177,7 +177,7 @@ class OpenSeadragonSettingsForm extends ConfigFormBase {
         '#type' => 'select',
         '#title' => t('Composite Operation'),
         '#description' => t('How the image is composited onto other images.'),
-        '#default_value' => $settings['compositeOperation'],
+        '#default_value' => isset($settings['compositeOperation']) ? $settings['compositeOperation'] : '',
         '#options' => array_combine(
           [
             NULL,
@@ -212,7 +212,7 @@ class OpenSeadragonSettingsForm extends ConfigFormBase {
       'placeholderFillStyle' => [
         '#type' => 'textfield',
         '#title' => t('Placeholder Fill Style'),
-        '#default_value' => $settings['placeholderFillStyle'],
+        '#default_value' => isset($settings['placeholderFillStyle']) ? $settings['placeholderFillStyle'] : '',
         '#description' => t('Draws a colored rectangle behind the tile if it is not loaded yet. You can pass a CSS color value like "#FF8800".'),
       ],
       'degrees' => [
@@ -228,7 +228,7 @@ class OpenSeadragonSettingsForm extends ConfigFormBase {
         '#title' => t('Minimum Zoom Level'),
         '#size' => 10,
         '#element_validate' => [[$this, 'elementValidateNumber']],
-        '#default_value' => $settings['minZoomLevel'],
+        '#default_value' => isset($settings['minZoomLevel']) ? $settings['minZoomLevel'] : '',
         '#description' => t('Minimum Zoom Level (integer).'),
       ],
       'maxZoomLevel' => [
@@ -236,7 +236,7 @@ class OpenSeadragonSettingsForm extends ConfigFormBase {
         '#title' => t('Maximum Zoom Level'),
         '#size' => 10,
         '#element_validate' => [[$this, 'elementValidateNumber']],
-        '#default_value' => $settings['maxZoomLevel'],
+        '#default_value' => isset($settings['maxZoomLevel']) ? $settings['maxZoomLevel'] : '',
         '#description' => t('Maximum Zoom Level (integer).'),
       ],
       'homeFillsViewer' => [
@@ -695,7 +695,7 @@ class OpenSeadragonSettingsForm extends ConfigFormBase {
             '#title' => t('Navigator Top Position'),
             '#size' => 10,
             '#element_validate' => [[$this, 'elementValidateNumber']],
-            '#default_value' => $settings['navigatorTop'],
+            '#default_value' => isset($settings['navigatorTop']) ? $settings['navigatorTop'] : '',
             '#description' => t('Specifies the location of the navigator minimap (see Navigator Position).'),
           ],
           'navigatorLeft' => [
@@ -703,7 +703,7 @@ class OpenSeadragonSettingsForm extends ConfigFormBase {
             '#title' => t('Navigator Left Position'),
             '#size' => 10,
             '#element_validate' => [[$this, 'elementValidateNumber']],
-            '#default_value' => $settings['navigatorLeft'],
+            '#default_value' => isset($settings['navigatorLeft']) ? $settings['navigatorLeft'] : '',
             '#description' => t('Specifies the location of the navigator minimap (see Navigator Position).'),
           ],
           'navigatorHeight' => [
@@ -711,7 +711,7 @@ class OpenSeadragonSettingsForm extends ConfigFormBase {
             '#title' => t('Navigator Height'),
             '#size' => 10,
             '#element_validate' => [[$this, 'elementValidateNumber']],
-            '#default_value' => $settings['navigatorHeight'],
+            '#default_value' => isset($settings['navigatorHeight']) ? $settings['navigatorHeight'] : '',
             '#description' => t('Specifies the size of the navigator minimap (see Navigator Position). If specified, Navigator Size Ratio and Navigator Maintain Size Ratio are ignored.'),
           ],
           'navigatorWidth' => [
@@ -719,7 +719,7 @@ class OpenSeadragonSettingsForm extends ConfigFormBase {
             '#title' => t('Navigator Width'),
             '#size' => 10,
             '#element_validate' => [[$this, 'elementValidateNumber']],
-            '#default_value' => $settings['navigatorWidth'],
+            '#default_value' => isset($settings['navigatorWidth']) ? $settings['navigatorWidth'] : '',
             '#description' => t('Specifies the size of the navigator minimap (see Navigator Position). If specified, Navigator Size Ratio and Navigator Maintain Size Ratio are ignored.'),
           ],
           'navigatorAutoResize' => [
@@ -942,7 +942,7 @@ class OpenSeadragonSettingsForm extends ConfigFormBase {
               '#title' => t('Reference Strip Height'),
               '#size' => 10,
               '#element_validate' => [[$this, 'elementValidateNumber']],
-              '#default_value' => $settings['referenceStripHeight'],
+              '#default_value' => isset($settings['referenceStripHeight']) ? $settings['referenceStripHeight'] : '',
               '#description' => t('Height of the reference strip in pixels.'),
             ],
             'referenceStripWidth' => [
@@ -950,7 +950,7 @@ class OpenSeadragonSettingsForm extends ConfigFormBase {
               '#title' => t('Reference Strip Width'),
               '#size' => 10,
               '#element_validate' => [[$this, 'elementValidateNumber']],
-              '#default_value' => $settings['referenceStripWidth'],
+              '#default_value' => isset($settings['referenceStripWidth']) ? $settings['referenceStripWidth'] : '',
               '#description' => t('Width of the reference strip in pixels.'),
             ],
             'referenceStripPosition' => [
