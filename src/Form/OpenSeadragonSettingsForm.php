@@ -711,7 +711,7 @@ class OpenSeadragonSettingsForm extends ConfigFormBase {
             '#title' => t('Navigator Height'),
             '#size' => 10,
             '#element_validate' => [[$this, 'elementValidateNumber']],
-            '#default_value' => $settings['navigatorHeight'],
+            '#default_value' => $settings['navigatorHeight'] ,
             '#description' => t('Specifies the size of the navigator minimap (see Navigator Position). If specified, Navigator Size Ratio and Navigator Maintain Size Ratio are ignored.'),
           ],
           'navigatorWidth' => [
@@ -764,17 +764,9 @@ class OpenSeadragonSettingsForm extends ConfigFormBase {
         '#default_value' => $settings['controlsFadeLength'],
         '#description' => t('The number of milliseconds to animate the controls fading out.'),
       ],
-      'controlsFadeDelay' => [
-        '#type' => 'textfield',
-        '#title' => t('Controls Fade Delay'),
-        '#size' => 10,
-        '#element_validate' => [[$this, 'elementValidateNumber']],
-        '#default_value' => $settings['controlsFadeDelay'],
-        '#description' => t('The number of milliseconds to wait once the user has stopped interacting with the interface before begining to fade the controls. Assumes showNavigationControl and autoHideControls are both true.'),
-      ],
       'maxImageCacheCount' => [
         '#type' => 'textfield',
-        '#title' => t('Controls Fade Delay'),
+        '#title' => t('Max Image Cache Count'),
         '#size' => 10,
         '#element_validate' => [[$this, 'elementValidateNumber']],
         '#default_value' => $settings['maxImageCacheCount'],
@@ -782,7 +774,7 @@ class OpenSeadragonSettingsForm extends ConfigFormBase {
       ],
       'timeout' => [
         '#type' => 'textfield',
-        '#title' => t('timeout'),
+        '#title' => t('Timeout'),
         '#size' => 10,
         '#element_validate' => [[$this, 'elementValidateNumber']],
         '#default_value' => $settings['timeout'],
