@@ -85,7 +85,7 @@ function template_preprocess_openseadragon_formatter(&$variables) {
   if (!is_null($iiif_address) && !empty($iiif_address) && array_key_exists('full_path', $resource)) {
 
     // Construct the tile source url.
-    $tile_source = rtrim($iiif_address, '/') . '/' . urlencode($path);
+    $tile_source = rtrim($iiif_address, '/') . '/' . urlencode($resource['full_path']);
 
     $variables['#attached']['drupalSettings']['openseadragon'] = [
       'basePath' => Url::fromUri($iiif_address),
