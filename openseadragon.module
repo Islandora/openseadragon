@@ -83,9 +83,6 @@ function template_preprocess_openseadragon_formatter(&$variables) {
   $iiif_address = $config->getIiifAddress();
 
   if (!is_null($iiif_address) && !empty($iiif_address) && array_key_exists('full_path', $resource)) {
-    // Get the path to the file by stripping off the site's base url.
-    $base = Url::fromRoute('<front>', [], ['absolute' => TRUE])->toString();
-    $path = str_replace($base, "", $resource['full_path']);
 
     // Construct the tile source url.
     $tile_source = rtrim($iiif_address, '/') . '/' . urlencode($path);
