@@ -5,3 +5,6 @@ services:
   openseadragon.fileinfo:
     class: Drupal\openseadragon\File\FileInformation
     arguments: ['@file.mime_type.guesser', '@stream_wrapper_manager']
+  openseadragon.manifest_parser:
+    class: Drupal\openseadragon\IIIFManifestParser
+    arguments: ['@token', '@current_route_match']
