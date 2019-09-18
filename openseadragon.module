@@ -108,6 +108,9 @@ function template_preprocess_openseadragon_formatter(&$variables) {
   }
 }
 
+/**
+ * Implements template_preprocess_HOOK().
+ */
 function template_preprocess_openseadragon_iiif_manifest_block(&$variables) {
   // Load the global settings.
   $config = \Drupal::service('openseadragon.config');

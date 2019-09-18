@@ -7,4 +7,7 @@ services:
     arguments: ['@file.mime_type.guesser', '@stream_wrapper_manager']
   openseadragon.manifest_parser:
     class: Drupal\openseadragon\IIIFManifestParser
-    arguments: ['@token', '@current_route_match']
+    arguments: ['@token', '@current_route_match', '@http_client', '@logger.channel.openseadragon']
+  logger.channel.openseadragon:
+      parent: logger.channel_base
+      arguments: ['openseadragon']

@@ -19,8 +19,7 @@ class OpenseadragonBlock extends BlockBase {
    * {@inheritdoc}
    */
   public function defaultConfiguration() {
-    return [
-          ] + parent::defaultConfiguration();
+    return [] + parent::defaultConfiguration();
   }
 
   /**
@@ -30,7 +29,7 @@ class OpenseadragonBlock extends BlockBase {
     $form['iiif_manifest_url'] = [
       '#type' => 'textfield',
       '#title' => $this->t('IIIF Manifest URL'),
-      '#description' => $this->t('URL of the IIIF manifest to render.  You may enter an absolute URL or use tokens to provide a pattern (e.g. "node/[node:id]/manifest"'),
+      '#description' => $this->t('URL of the IIIF manifest to render.  You may use tokens to provide a pattern (e.g. "http://localhost/node/[node:id]/manifest"'),
       '#default_value' => $this->configuration['iiif_manifest_url'],
       '#maxlength' => 256,
       '#size' => 64,
@@ -55,7 +54,7 @@ class OpenseadragonBlock extends BlockBase {
     $build = [];
     $build['openseadragon_block'] = [
       '#theme' => 'openseadragon_iiif_manifest_block',
-      '#iiif_manifest_url' => $this->configuration['iiif_manifest_url']
+      '#iiif_manifest_url' => $this->configuration['iiif_manifest_url'],
     ];
 
     return $build;
