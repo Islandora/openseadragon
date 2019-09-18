@@ -1,5 +1,7 @@
 <?php
 
+namespace Drupal\openseadragon;
+
 use Drupal\Core\Utility\Token;
 use Drupal\Core\Routing\RouteMatchInterface;
 

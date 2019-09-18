@@ -1,7 +1,5 @@
 <?php
 
-namespace Drupal\openseadragon;
-
 /**
  * @file
  * Main functions and template preprocessor.
@@ -43,7 +41,6 @@ function openseadragon_libraries_info() {
  * Implements hook_theme().
  */
 function openseadragon_theme() {
-	dsm("IN HOOK_THEME");
   return [
     'openseadragon_formatter' => [
       'variables' => [
@@ -112,7 +109,6 @@ function template_preprocess_openseadragon_formatter(&$variables) {
 }
 
 function template_preprocess_openseadragon_iiif_manifest_block(&$variables) {
-	dsm("IN PREPROCESS");
   // Load the global settings.
   $config = \Drupal::service('openseadragon.config');
 
