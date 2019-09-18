@@ -29,7 +29,7 @@ class OpenseadragonBlock extends BlockBase {
     $form['iiif_manifest_url'] = [
       '#type' => 'textfield',
       '#title' => $this->t('IIIF Manifest URL'),
-      '#description' => $this->t('URL of the IIIF manifest to render.  You may use tokens to provide a pattern (e.g. "http://localhost/node/[node:id]/manifest"'),
+      '#description' => $this->t('Absolute URL of the IIIF manifest to render.  You may use tokens to provide a pattern (e.g. "http://localhost/node/[node:nid]/manifest"'),
       '#default_value' => $this->configuration['iiif_manifest_url'],
       '#maxlength' => 256,
       '#size' => 64,
