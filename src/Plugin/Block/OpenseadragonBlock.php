@@ -40,6 +40,7 @@ class OpenseadragonBlock extends BlockBase {
     ];
     $form['iiif_manifest_url_fieldset']['token_help'] = [
       '#theme' => 'token_tree_link',
+      '#global_types' => FALSE,
       '#token_types' => ['node'],
     ];
 
