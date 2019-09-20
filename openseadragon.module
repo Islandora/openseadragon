@@ -49,6 +49,11 @@ function openseadragon_theme() {
         'settings' => NULL,
       ],
     ],
+    'openseadragon_iiif_manifest_block' => [
+      'variables' => [
+        'iiif_manifest_url' => NULL,
+      ],
+    ],
   ];
 }
 
@@ -101,6 +106,50 @@ function template_preprocess_openseadragon_formatter(&$variables) {
     $variables['attributes']['class'] = $classes_array;
     $variables['attributes']['id'] = $openseadragon_viewer_id;
   }
+}
+
+/**
+ * Implements template_preprocess_HOOK().
+ */
+function template_preprocess_openseadragon_iiif_manifest_block(&$variables) {
+  // Load the global settings.
+  $config = \Drupal::service('openseadragon.config');
+
+  // TODO: Once Libraries API is finished find a function for this.
+  $base_library_path = 'sites/all/assets/vendor';
+
+  // Build the gallery id.
+  $openseadragon_viewer_id = 'openseadragon-viewer-iiif-manifest-block';
+
+  $classes_array = ['openseadragon-viewer'];
+  $viewer_settings = $config->getSettings(TRUE);
+  $iiif_address = $config->getIiifAddress();
+
+  // Get the tile sources from the manifest.
+  $parser = \Drupal::service('openseadragon.manifest_parser');
+  $tile_sources = $parser->getTileSources($variables['iiif_manifest_url']);
+
+  if (empty($tile_sources)) {
+    return;
+  }
+
+  // Attach the viewer, using the image urls obtained from the manifest.
+  if (!is_null($iiif_address) && !empty($iiif_address) && !empty($tile_sources)) {
+    $variables['#attached']['drupalSettings']['openseadragon'] = [
+      'basePath' => Url::fromUri($iiif_address),
+      'fitToAspectRatio' => $viewer_settings['fit_to_aspect_ratio'],
+      'options' => [
+        'id' => $openseadragon_viewer_id,
+        'prefixUrl' => file_create_url("{$base_library_path}/openseadragon/images/"),
+        'tileSources' => $tile_sources,
+      ] + $viewer_settings,
+    ];
+
+    $variables['attributes'] = new Attribute();
+    $variables['attributes']['class'] = $classes_array;
+    $variables['attributes']['id'] = $openseadragon_viewer_id;
+  }
+
 }
 
 /**
