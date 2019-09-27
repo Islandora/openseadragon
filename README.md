@@ -1,5 +1,4 @@
-# OpenSeadragon
-# ![Mascot](https://user-images.githubusercontent.com/5439169/65790675-0242b600-e115-11e9-817f-e31c41bf2ece.png)
+# ![Mascot](https://user-images.githubusercontent.com/5439169/65790675-0242b600-e115-11e9-817f-e31c41bf2ece.png) Openseadragon
 [![Build Status](https://travis-ci.com/Islandora-CLAW/openseadragon.png?branch=8.x-1.x)](https://travis-ci.com/Islandora-CLAW/openseadragon)
 [![Contribution Guidelines](http://img.shields.io/badge/CONTRIBUTING-Guidelines-blue.svg)](./CONTRIBUTING.md)
 [![LICENSE](https://img.shields.io/badge/license-GPLv2-blue.svg?style=flat-square)](./LICENSE)
@@ -41,13 +40,13 @@ Further documentation for this module is available on the [Islandora 8 documenta
 
 Having problems or solved a problem? Check out the Islandora google groups for a solution.
 
-* [Islandora Group](https://groups.google.com/forum/?hl=en&fromgroups#!forum/islandora) * [Islandora Dev Group](https://groups.google.com/forum/?hl=en&fromgroups#!forum/islandora-dev)
+* [Islandora Group](https://groups.google.com/forum/?hl=en&fromgroups#!forum/islandora) 
+* [Islandora Dev Group](https://groups.google.com/forum/?hl=en&fromgroups#!forum/islandora-dev)
 
 ## Maintainers
 
 Current maintainers:
 
-* [Jared Whiklo](https://github.com/whikloj)
 * [Eli Zoller](https://github.com/elizoller)
 
 
@@ -61,5 +60,4 @@ We recommend using the [claw-playbook](https://github.com/Islandora-Devops/claw-
 
 ## License
 
-[GPLv2](https://github.com/Islandora-CLAW/openseadragon/blob/8.x-1.x/LICENSE)
-
+[GPLv2](./LICENSE)
