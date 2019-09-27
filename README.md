@@ -1,4 +1,5 @@
 # OpenSeadragon
+# ![Mascot](https://user-images.githubusercontent.com/5439169/65790675-0242b600-e115-11e9-817f-e31c41bf2ece.png)
 [![Build Status](https://travis-ci.com/Islandora-CLAW/openseadragon.png?branch=8.x-1.x)](https://travis-ci.com/Islandora-CLAW/openseadragon)
 [![Contribution Guidelines](http://img.shields.io/badge/CONTRIBUTING-Guidelines-blue.svg)](./CONTRIBUTING.md)
 [![LICENSE](https://img.shields.io/badge/license-GPLv2-blue.svg?style=flat-square)](./LICENSE)
@@ -29,6 +30,7 @@ If you are using the [claw-playbook](https://github.com/Islandora-Devops/claw-pl
 The module, once enabled will create a configuration page under Configuration > Media > Openseadragon Settings.
 There will be some default settings checked for you. The one setting which you will need to set as a required minimum is the IIIF Image Server Location, such as `http://127.0.0.1:8080/cantaloupe/iiif/2`
 There are a myriad of other configuration settings available there. Additional openseadragon documentation is available [here](https://openseadragon.github.io/#examples-and-features)
+# ![Config](https://user-images.githubusercontent.com/5439169/65790661-fd7e0200-e114-11e9-8d71-86b5f949d870.png)
 
 
 ## Documentation
