@@ -61,5 +61,5 @@ We recommend using the [claw-playbook](https://github.com/Islandora-Devops/claw-
 
 ## License
 
-[GPLv2](http://www.gnu.org/licenses/gpl-2.0.txt)
+[GPLv2](https://github.com/Islandora-CLAW/openseadragon/blob/8.x-1.x/LICENSE)
 
