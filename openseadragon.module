@@ -8,6 +8,7 @@
 use Drupal\file\Entity\File;
 use Drupal\Core\Template\Attribute;
 use Drupal\Core\Url;
+use Drupal\Component\Utility\Html;
 
 /**
  * Implements hook_libraries_info().
@@ -127,7 +128,7 @@ function template_preprocess_openseadragon_iiif_manifest_block(&$variables) {
   $base_library_path = 'sites/all/assets/vendor';
 
   // Build the gallery id.
-  $openseadragon_viewer_id = 'openseadragon-viewer-iiif-manifest-block';
+  $openseadragon_viewer_id = Html::getUniqueId('openseadragon-viewer-iiif-manifest-block');
 
   $classes_array = ['openseadragon-viewer'];
   $viewer_settings = $config->getSettings(TRUE);
