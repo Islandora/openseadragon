@@ -99,7 +99,7 @@ function template_preprocess_openseadragon_formatter(&$variables) {
 
   if (!empty($tile_sources)) {
 
-  $viewer_settings['sequenceMode'] = count($tile_sources) > 1 && !$viewer_settings['collectionMode'];
+    $viewer_settings['sequenceMode'] = count($tile_sources) > 1 && !$viewer_settings['collectionMode'];
 
     $variables['#attached']['drupalSettings']['openseadragon'] = [
       'basePath' => Url::fromUri($iiif_address),

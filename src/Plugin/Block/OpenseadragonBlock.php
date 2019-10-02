@@ -21,8 +21,18 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  */
 class OpenseadragonBlock extends BlockBase implements ContainerFactoryPluginInterface {
 
+  /**
+   * The current route match.
+   *
+   * @var \Drupal\Core\Routing\RouteMatchInterface
+   */
   protected $routeMatch;
 
+  /**
+   * Views storage.
+   *
+   * @var \Drupal\Core\Entity\EntityStorageInterface
+   */
   protected $viewsStorage;
 
   /**
@@ -32,6 +42,9 @@ class OpenseadragonBlock extends BlockBase implements ContainerFactoryPluginInte
    */
   protected $seadragonConfig;
 
+  /**
+   * {@inheritdoc}
+   */
   public function __construct(
     array $configuration,
     $plugin_id,
@@ -46,6 +59,9 @@ class OpenseadragonBlock extends BlockBase implements ContainerFactoryPluginInte
     $this->seadragonConfig = $seadragon_config;
   }
 
+  /**
+   * {@inheritdoc}
+   */
   public static function create(
     ContainerInterface $container,
     array $configuration,
@@ -133,7 +149,7 @@ class OpenseadragonBlock extends BlockBase implements ContainerFactoryPluginInte
       '#theme' => 'openseadragon_iiif_manifest_block',
       '#iiif_manifest_url' => $this->configuration['iiif_manifest_url'],
       '#cache' => [
-	'contexts' => Cache::mergeContexts(parent::getCacheContexts(), ['route']),
+        'contexts' => Cache::mergeContexts(parent::getCacheContexts(), ['route']),
         'tags' => $cache_tags,
       ],
     ];

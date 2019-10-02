@@ -2,6 +2,7 @@
 
 namespace Drupal\openseadragon\Form;
 
+use Drupal\views\Views;
 use Drupal\Component\Utility\UrlHelper;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Form\ConfigFormBase;
@@ -99,11 +100,11 @@ class OpenSeadragonSettingsForm extends ConfigFormBase {
       'manifest_view' => [
         '#type' => 'select',
         '#title' => t('IIIF Manifest View'),
-	'#empty_value' => TRUE,
+        '#empty_value' => TRUE,
         '#default_value' => $this->seadragonConfig->getManifestView(),
         '#description' => t('If using a view to generate IIIF manifests, please select it here.'),
-	'#options' => \Drupal\views\Views::getViewsAsOptions(TRUE),
-      ]
+        '#options' => Views::getViewsAsOptions(TRUE),
+      ],
     ];
     $form['openseadragon_settings'] = [
       '#type' => 'details',
@@ -873,7 +874,6 @@ class OpenSeadragonSettingsForm extends ConfigFormBase {
       // Sequence mode is autodetected and used as the default when
       // multiple tilesources are present. It is overridden by
       // collection mode.
-
       // We don't provide "zoomInButton" as configurable to users.
       // We don't provide "zoomOutButton" as configurable to users.
       // We don't provide "homeButton" as configurable to users.
@@ -885,13 +885,13 @@ class OpenSeadragonSettingsForm extends ConfigFormBase {
       'sequenceOptions' => [
         '#type' => 'fieldset',
         '#title' => 'Sequence Mode',
-	'sequenceMode' => [
-	  '#type' => 'item',
-	  '#description' => 'Default mode if multiple images are detected.  Images are viewed one at a time with arrow buttons for navigation. Enabling Collection Mode will disable Sequence Mode.',
+        'sequenceMode' => [
+          '#type' => 'item',
+          '#description' => 'Default mode if multiple images are detected.  Images are viewed one at a time with arrow buttons for navigation. Enabling Collection Mode will disable Sequence Mode.',
         ],
         'sequenceContainer' => [
           '#type' => 'container',
-	  '#description' => t('Default mode if multiple tile sources are to be displayed.  Images will be viewed one at a time with arrow buttons for navigation.  Enabling Collection Mode will override Sequence Mode.'),
+          '#description' => t('Default mode if multiple tile sources are to be displayed.  Images will be viewed one at a time with arrow buttons for navigation.  Enabling Collection Mode will override Sequence Mode.'),
           '#states' => [
             'enabled' => [
               ':input[name="openseadragon_settings[collectionModeFields][collectionMode]"]' => ['checked' => FALSE],
