@@ -3,7 +3,13 @@
 namespace Drupal\openseadragon\Plugin\Block;
 
 use Drupal\Core\Block\BlockBase;
+use Drupal\Core\Cache\Cache;
+use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
+use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\openseadragon\ConfigInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Provides a 'OpenseadragonBlock' block from a IIIF manifest.
@@ -13,7 +19,48 @@ use Drupal\Core\Form\FormStateInterface;
  *  admin_label = @Translation("Openseadragon block"),
  * )
  */
-class OpenseadragonBlock extends BlockBase {
+class OpenseadragonBlock extends BlockBase implements ContainerFactoryPluginInterface {
+
+  protected $routeMatch;
+
+  protected $viewsStorage;
+
+  /**
+   * OpenSeadragon Config.
+   *
+   * @var \Drupal\openseadragon\ConfigInterface
+   */
+  protected $seadragonConfig;
+
+  public function __construct(
+    array $configuration,
+    $plugin_id,
+    $plugin_definition,
+    RouteMatchInterface $route_match,
+    EntityStorageInterface $views_storage,
+    ConfigInterface $seadragon_config
+  ) {
+    parent::__construct($configuration, $plugin_id, $plugin_definition);
+    $this->routeMatch = $route_match;
+    $this->viewsStorage = $views_storage;
+    $this->seadragonConfig = $seadragon_config;
+  }
+
+  public static function create(
+    ContainerInterface $container,
+    array $configuration,
+    $plugin_id,
+    $plugin_definition
+  ) {
+    return new static(
+      $configuration,
+      $plugin_id,
+      $plugin_definition,
+      $container->get('current_route_match'),
+      $container->get('entity_type.manager')->getStorage('view'),
+      $container->get('openseadragon.config')
+    );
+  }
 
   /**
    * {@inheritdoc}
@@ -60,10 +107,35 @@ class OpenseadragonBlock extends BlockBase {
    * {@inheritdoc}
    */
   public function build() {
+    $cache_tags = Cache::mergeTags(
+      parent::getCacheTags(),
+      ['node_list', 'media_list']
+    );
+
+    $view_id = $this->seadragonConfig->getManifestView();
+    $view = $this->viewsStorage->load($view_id);
+    if ($view) {
+      $cache_tags = Cache::mergeTags(
+        $cache_tags,
+        $view->getCacheTags()
+      );
+    }
+
+    if ($node = $this->routeMatch->getParameter('node')) {
+      $cache_tags = Cache::mergeTags(
+        $cache_tags,
+        ['node:' . $node->id()]
+      );
+    }
+
     $build = [];
     $build['openseadragon_block'] = [
       '#theme' => 'openseadragon_iiif_manifest_block',
       '#iiif_manifest_url' => $this->configuration['iiif_manifest_url'],
+      '#cache' => [
+	'contexts' => Cache::mergeContexts(parent::getCacheContexts(), ['route']),
+        'tags' => $cache_tags,
+      ],
     ];
 
     return $build;

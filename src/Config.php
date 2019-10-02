@@ -101,6 +101,13 @@ class Config implements ConfigInterface {
   }
 
   /**
+   * {@inheritdoc}
+   */
+  public function getManifestView() {
+    return $this->config->get('manifest_view');
+  }
+
+  /**
    * Filter out NULL values from the array.
    *
    * @param array $configArray

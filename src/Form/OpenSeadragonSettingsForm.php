@@ -96,6 +96,14 @@ class OpenSeadragonSettingsForm extends ConfigFormBase {
         '#required' => TRUE,
         '#description' => t('Please enter the image server location without trailing slash. eg:  http://www.example.org/iiif/2.'),
       ],
+      'manifest_view' => [
+        '#type' => 'select',
+        '#title' => t('IIIF Manifest View'),
+	'#empty_value' => TRUE,
+        '#default_value' => $this->seadragonConfig->getManifestView(),
+        '#description' => t('If using a view to generate IIIF manifests, please select it here.'),
+	'#options' => \Drupal\views\Views::getViewsAsOptions(TRUE),
+      ]
     ];
     $form['openseadragon_settings'] = [
       '#type' => 'details',
@@ -1064,6 +1072,7 @@ class OpenSeadragonSettingsForm extends ConfigFormBase {
 
     if (!empty($form_state->getValue('iiif_server'))) {
       $config->set('iiif_server', $form_state->getValue('iiif_server'));
+      $config->set('manifest_view', $form_state->getValue('manifest_view'));
     }
     $config->save();
 
