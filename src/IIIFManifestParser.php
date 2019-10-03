@@ -93,7 +93,15 @@ class IIIFManifestParser {
       // Hack the tile sources out of the manifest.
       $tile_sources = [];
       foreach ($manifest['sequences'] as $sequence) {
+        if (!isset($sequence['canvases']) || empty($sequence['canvases'])) {
+          continue;
+        }
+
         foreach ($sequence['canvases'] as $canvas) {
+          if (!isset($canvas['images']) || empty($canvas['images'])) {
+            continue;
+          }
+
           foreach ($canvas['images'] as $key => $image) {
             if (is_numeric($key)) {
               $tile_sources[] = $image['resource']['service']['@id'];

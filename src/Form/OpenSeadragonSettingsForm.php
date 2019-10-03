@@ -2,6 +2,7 @@
 
 namespace Drupal\openseadragon\Form;
 
+use Drupal\views\Views;
 use Drupal\Component\Utility\UrlHelper;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Form\ConfigFormBase;
@@ -95,6 +96,14 @@ class OpenSeadragonSettingsForm extends ConfigFormBase {
         '#default_value' => $this->seadragonConfig->getIiifAddress(),
         '#required' => TRUE,
         '#description' => t('Please enter the image server location without trailing slash. eg:  http://www.example.org/iiif/2.'),
+      ],
+      'manifest_view' => [
+        '#type' => 'select',
+        '#title' => t('IIIF Manifest View'),
+        '#empty_value' => TRUE,
+        '#default_value' => $this->seadragonConfig->getManifestView(),
+        '#description' => t('If using a view to generate IIIF manifests, please select it here.'),
+        '#options' => Views::getViewsAsOptions(TRUE),
       ],
     ];
     $form['openseadragon_settings'] = [
@@ -862,6 +871,9 @@ class OpenSeadragonSettingsForm extends ConfigFormBase {
         '#default_value' => $settings['navPrevNextWrap'],
         '#description' => t('If true then the "previous" button will wrap to the last image when viewing the first image and the "next" button will wrap to the first image when viewing the last image.'),
       ],
+      // Sequence mode is autodetected and used as the default when
+      // multiple tilesources are present. It is overridden by
+      // collection mode.
       // We don't provide "zoomInButton" as configurable to users.
       // We don't provide "zoomOutButton" as configurable to users.
       // We don't provide "homeButton" as configurable to users.
@@ -874,16 +886,15 @@ class OpenSeadragonSettingsForm extends ConfigFormBase {
         '#type' => 'fieldset',
         '#title' => 'Sequence Mode',
         'sequenceMode' => [
-          '#type' => 'checkbox',
-          '#title' => t('Sequence Mode'),
-          '#default_value' => $settings['sequenceMode'],
-          '#description' => t('Set to true to have the viewer treat your tilesources as a sequence of images to be opened one at a time rather than all at once.'),
+          '#type' => 'item',
+          '#description' => 'Default mode if multiple images are detected.  Images are viewed one at a time with arrow buttons for navigation. Enabling Collection Mode will disable Sequence Mode.',
         ],
         'sequenceContainer' => [
           '#type' => 'container',
+          '#description' => t('Default mode if multiple tile sources are to be displayed.  Images will be viewed one at a time with arrow buttons for navigation.  Enabling Collection Mode will override Sequence Mode.'),
           '#states' => [
-            'visible' => [
-              ':input[name="openseadragon_settings[sequenceOptions][sequenceMode]"]' => ['checked' => TRUE],
+            'enabled' => [
+              ':input[name="openseadragon_settings[collectionModeFields][collectionMode]"]' => ['checked' => FALSE],
             ],
           ],
           // We don't provide "initialPage" as configurable to users.
@@ -970,7 +981,7 @@ class OpenSeadragonSettingsForm extends ConfigFormBase {
           '#type' => 'checkbox',
           '#title' => t('Enable Collection Mode'),
           '#default_value' => $settings['collectionMode'],
-          '#description' => t('Set to true to have the viewer arrange your TiledImages in a grid or line.'),
+          '#description' => t('Arranges multiple images in a grid or line. Enabling Collection Mode will disable Sequence Mode.'),
         ],
         'collectionModeContainer' => [
           '#type' => 'container',
@@ -1061,6 +1072,7 @@ class OpenSeadragonSettingsForm extends ConfigFormBase {
 
     if (!empty($form_state->getValue('iiif_server'))) {
       $config->set('iiif_server', $form_state->getValue('iiif_server'));
+      $config->set('manifest_view', $form_state->getValue('manifest_view'));
     }
     $config->save();
 

@@ -8,6 +8,7 @@
 use Drupal\file\Entity\File;
 use Drupal\Core\Template\Attribute;
 use Drupal\Core\Url;
+use Drupal\Component\Utility\Html;
 
 /**
  * Implements hook_libraries_info().
@@ -70,27 +71,35 @@ function template_preprocess_openseadragon_formatter(&$variables) {
   // TODO: Once Libraries API is finished find a function for this.
   $base_library_path = 'sites/all/assets/vendor';
 
+  $classes_array = ['openseadragon-viewer'];
+  $viewer_settings = $config->getSettings(TRUE);
+  $iiif_address = $config->getIiifAddress();
+  if (is_null($iiif_address) || empty($iiif_address)) {
+    return;
+  }
+
   // Build the gallery id.
   $id = $entity->id();
   $openseadragon_viewer_id = 'openseadragon-viewer-' . $id;
   $field_name = $item->getParent()->getName();
 
+  $tile_sources = [];
   $field_value = $entity->get($field_name)->getValue();
-  if (isset($field_value['0']['target_id'])) {
+  foreach ($field_value as $value) {
     // Load the image and take file uri.
-    $fid = $field_value[0]['target_id'];
-    $file = File::load($fid);
-    $resource = $fileinfo_service->getFileData($file);
+    if (isset($value['target_id'])) {
+      $fid = $value['target_id'];
+      $file = File::load($fid);
+      $resource = $fileinfo_service->getFileData($file);
+      if (isset($resource['full_path'])) {
+        $tile_sources[] = rtrim($iiif_address, '/') . '/' . urlencode($resource['full_path']);
+      }
+    }
   }
 
-  $classes_array = ['openseadragon-viewer'];
-  $viewer_settings = $config->getSettings(TRUE);
-  $iiif_address = $config->getIiifAddress();
+  if (!empty($tile_sources)) {
 
-  if (!is_null($iiif_address) && !empty($iiif_address) && array_key_exists('full_path', $resource)) {
-
-    // Construct the tile source url.
-    $tile_source = rtrim($iiif_address, '/') . '/' . urlencode($resource['full_path']);
+    $viewer_settings['sequenceMode'] = count($tile_sources) > 1 && !$viewer_settings['collectionMode'];
 
     $variables['#attached']['drupalSettings']['openseadragon'] = [
       'basePath' => Url::fromUri($iiif_address),
@@ -98,7 +107,7 @@ function template_preprocess_openseadragon_formatter(&$variables) {
       'options' => [
         'id' => $openseadragon_viewer_id,
         'prefixUrl' => file_create_url("{$base_library_path}/openseadragon/images/"),
-        'tileSources' => $tile_source,
+        'tileSources' => $tile_sources,
       ] + $viewer_settings,
     ];
 
@@ -119,7 +128,7 @@ function template_preprocess_openseadragon_iiif_manifest_block(&$variables) {
   $base_library_path = 'sites/all/assets/vendor';
 
   // Build the gallery id.
-  $openseadragon_viewer_id = 'openseadragon-viewer-iiif-manifest-block';
+  $openseadragon_viewer_id = Html::getUniqueId('openseadragon-viewer-iiif-manifest-block');
 
   $classes_array = ['openseadragon-viewer'];
   $viewer_settings = $config->getSettings(TRUE);
@@ -132,6 +141,8 @@ function template_preprocess_openseadragon_iiif_manifest_block(&$variables) {
   if (empty($tile_sources)) {
     return;
   }
+
+  $viewer_settings['sequenceMode'] = count($tile_sources) > 1 && !$viewer_settings['collectionMode'];
 
   // Attach the viewer, using the image urls obtained from the manifest.
   if (!is_null($iiif_address) && !empty($iiif_address) && !empty($tile_sources)) {
