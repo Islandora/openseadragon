@@ -1,5 +1,5 @@
 # ![Mascot](https://user-images.githubusercontent.com/5439169/65790675-0242b600-e115-11e9-817f-e31c41bf2ece.png) OpenSeadragon
-[![Build Status](https://travis-ci.com/Islandora-CLAW/openseadragon.png?branch=8.x-1.x)](https://travis-ci.com/Islandora-CLAW/openseadragon)
+[![Build Status](https://travis-ci.com/Islandora/openseadragon.png?branch=8.x-1.x)](https://travis-ci.com/Islandora/openseadragon)
 [![Contribution Guidelines](http://img.shields.io/badge/CONTRIBUTING-Guidelines-blue.svg)](./CONTRIBUTING.md)
 [![LICENSE](https://img.shields.io/badge/license-GPLv2-blue.svg?style=flat-square)](./LICENSE)
 
@@ -21,7 +21,7 @@ As a Drupal module, this module can be installed via composer and enabled via Dr
 3. place the version of OpenSeadragon in your drupal install in a location such as `web/sites/all/assets/vendor/openseadragon`
 4. `drush pm-en openseadragon`
 
-If you are using the [claw-playbook](https://github.com/Islandora-Devops/claw-playbook), there is an [Ansible role](https://github.com/Islandora-Devops/ansible-role-drupal-openseadragon) already built for installing OpenSeadragon.
+If you are using the [islandora-playbook](https://github.com/Islandora-Devops/islandora-playbook), there is an [Ansible role](https://github.com/Islandora-Devops/ansible-role-drupal-openseadragon) already built for installing OpenSeadragon.
 
 
 ## Configuration
@@ -34,13 +34,13 @@ There are a myriad of other configuration settings available there. Additional O
 
 ## Documentation
 
-Further documentation for this module is available on the [Islandora 8 documentation site](https://islandora-claw.github.io/CLAW/).
+Further documentation for this module is available on the [Islandora 8 documentation site](https://islandora.github.io/documentation/).
 
 ## Troubleshooting/Issues
 
 Having problems or solved a problem? Check out the Islandora google groups for a solution.
 
-* [Islandora Group](https://groups.google.com/forum/?hl=en&fromgroups#!forum/islandora) 
+* [Islandora Group](https://groups.google.com/forum/?hl=en&fromgroups#!forum/islandora)
 * [Islandora Dev Group](https://groups.google.com/forum/?hl=en&fromgroups#!forum/islandora-dev)
 
 ## Maintainers
@@ -52,11 +52,11 @@ Current maintainers:
 
 ## Development
 
-If you would like to contribute, please get involved by attending our weekly [Tech Call](https://github.com/Islandora-CLAW/CLAW/wiki). We love to hear from you!
+If you would like to contribute, please get involved by attending our weekly [Tech Call](https://github.com/Islandora/documentation/wiki). We love to hear from you!
 
 If you would like to contribute code to the project, you need to be covered by an Islandora Foundation [Contributor License Agreement](http://islandora.ca/sites/default/files/islandora_cla.pdf) or [Corporate Contributor License Agreement](http://islandora.ca/sites/default/files/islandora_ccla.pdf). Please see the [Contributors](http://islandora.ca/resources/contributors) pages on Islandora.ca for more information.
 
-We recommend using the [claw-playbook](https://github.com/Islandora-Devops/claw-playbook) to get started. If you want to pull down the submodules for development, don't forget to run `git submodule update --init --recursive` after cloning.
+We recommend using the [islandora-playbook](https://github.com/Islandora-Devops/islandora-playbook) to get started. If you want to pull down the submodules for development, don't forget to run `git submodule update --init --recursive` after cloning.
 
 ## License
 
