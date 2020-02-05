@@ -2,3 +2,8 @@
   height: 640px;
   background-color: #000;
 }
+
+/* images display very small. workaround is to set the container at 100% width */
+.field-formatter-openseadragon-image .field-type-image__item {
+  width: 100%;
+}
