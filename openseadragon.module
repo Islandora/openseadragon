@@ -106,7 +106,7 @@ function template_preprocess_openseadragon_formatter(&$variables) {
       'fitToAspectRatio' => $viewer_settings['fit_to_aspect_ratio'],
       'options' => [
         'id' => $openseadragon_viewer_id,
-        'prefixUrl' => file_create_url("{$base_library_path}/openseadragon/images/"),
+        'prefixUrl' => file_url_transform_relative(file_create_url("{$base_library_path}/openseadragon/images/")),
         'tileSources' => $tile_sources,
       ] + $viewer_settings,
     ];
