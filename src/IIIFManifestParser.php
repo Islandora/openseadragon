@@ -78,7 +78,7 @@ class IIIFManifestParser {
     }
 
     // If the URL is relative, make it absolute.
-    if (substr($manifest_url, 0, 4 ) !== "http") {
+    if (substr($manifest_url, 0, 4) !== "http") {
       $manifest_url = ltrim($manifest_url, '/');
       $manifest_url = Url::fromRoute('<front>', [], ['absolute' => TRUE])->toString() . $manifest_url;
     }
