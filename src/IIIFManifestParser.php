@@ -2,6 +2,7 @@
 
 namespace Drupal\openseadragon;
 
+use Drupal\Core\Url;
 use Drupal\Core\Utility\Token;
 use Drupal\Core\Routing\RouteMatchInterface;
 use GuzzleHttp\Client;
@@ -74,6 +75,12 @@ class IIIFManifestParser {
     $current_node = $this->routeMatch->getParameter('node');
     if ($current_node) {
       $manifest_url = $this->token->replace($manifest_url, ['node' => $current_node]);
+    }
+
+    // If the URL is relative, make it absolute.
+    if (substr($manifest_url, 0, 4 ) !== "http") {
+      $manifest_url = ltrim($manifest_url, '/');
+      $manifest_url = Url::fromRoute('<front>', [], ['absolute' => TRUE])->toString() . $manifest_url;
     }
 
     try {
