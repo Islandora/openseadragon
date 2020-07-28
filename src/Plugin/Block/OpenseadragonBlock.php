@@ -95,7 +95,7 @@ class OpenseadragonBlock extends BlockBase implements ContainerFactoryPluginInte
     ];
     $form['iiif_manifest_url_fieldset']['iiif_manifest_url'] = [
       '#type' => 'textfield',
-      '#description' => $this->t('Absolute URL of the IIIF manifest to render.  You may use tokens to provide a pattern (e.g. "http://localhost/node/[node:nid]/manifest")'),
+      '#description' => $this->t('Relative path or URL of the IIIF manifest to render. You may use tokens to provide a pattern (e.g. "http://example.org/node/[node:nid]/manifest", or simply "node/[node:nid]/manifest" if you are referring to your own site)'),
       '#default_value' => $this->configuration['iiif_manifest_url'],
       '#maxlength' => 256,
       '#size' => 64,
