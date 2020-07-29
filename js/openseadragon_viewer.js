@@ -18,10 +18,12 @@
      */
     Drupal.behaviors.openSeadragon = {
         attach: function(context, settings) {
-            // Use custom element #id if set.
-            base = '#' + settings.openseadragon.options.id;
-            $(base, context).once('openSeadragonViewer').each(function () {
-                  Drupal.openSeadragonViewer[base] = new Drupal.openSeadragonViewer(base, settings.openseadragon);
+            Object.keys(settings.openseadragon).forEach(function(osdViewerId) {
+              // Use custom element #id if set.
+              base = '#' + osdViewerId;
+              $(base, context).once('openSeadragonViewer').each(function () {
+                    Drupal.openSeadragonViewer[base] = new Drupal.openSeadragonViewer(base, settings.openseadragon[osdViewerId]);
+              });
             });
         },
         detach: function() {
