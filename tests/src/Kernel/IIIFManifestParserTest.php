@@ -14,7 +14,7 @@ use GuzzleHttp\Psr7\Response;
 use Psr\Log\LoggerInterface;
 
 /**
- * Class IIIFManifestParserTest.
+ * Tests the IIIFManifestParser class.
  *
  * @package Drupal\Tests\openseadragon\Kernel
  * @group openseadragon

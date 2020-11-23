@@ -68,7 +68,7 @@ function template_preprocess_openseadragon_formatter(&$variables) {
   $config = \Drupal::service('openseadragon.config');
   $fileinfo_service = \Drupal::service('openseadragon.fileinfo');
 
-  // TODO: Once Libraries API is finished find a function for this.
+  // @todo Once Libraries API is finished find a function for this.
   $base_library_path = 'sites/all/assets/vendor';
 
   $classes_array = ['openseadragon-viewer'];
@@ -124,7 +124,7 @@ function template_preprocess_openseadragon_iiif_manifest_block(&$variables) {
   // Load the global settings.
   $config = \Drupal::service('openseadragon.config');
 
-  // TODO: Once Libraries API is finished find a function for this.
+  // @todo Once Libraries API is finished find a function for this.
   $base_library_path = 'sites/all/assets/vendor';
 
   // Build the gallery id.

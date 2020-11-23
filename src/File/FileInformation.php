@@ -7,7 +7,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\File\MimeType\MimeTypeGuesserInterface;
 
 /**
- * Class FileInformation.
+ * Gets file information for the image to be viewed.
  *
  * @package Drupal\openseadragon\File
  */
