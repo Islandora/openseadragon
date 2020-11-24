@@ -14,7 +14,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 /**
  * OpenSeadragon Settings Form.
  *
- * TODO: Some of these settings could be moved to the display level.
+ * @todo Some of these settings could be moved to the display level.
  */
 class OpenSeadragonSettingsForm extends ConfigFormBase {
 

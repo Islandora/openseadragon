@@ -9,7 +9,7 @@ use Drupal\openseadragon\File\FileInformation;
 use Symfony\Component\HttpFoundation\File\MimeType\MimeTypeGuesserInterface;
 
 /**
- * Class ConfigTests.
+ * Tests the Config class.
  *
  * @package Drupal\Tests\openseadragon\Kernel
  * @group openseadragon
