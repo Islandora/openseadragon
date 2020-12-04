@@ -58,7 +58,7 @@ class FileInformation implements FileInformationInterface {
       }
     }
     $output['mime_type'] = $mime_type;
-    $output['full_path'] = $file->url();
+    $output['full_path'] = $file->createFileUrl(FALSE);
     return $output;
   }
 
