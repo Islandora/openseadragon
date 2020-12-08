@@ -9,7 +9,6 @@ Drupal 8 FieldFormatter to display an image or generic file using a IIIF Image s
 
 ## Requirements
 
-* [drupal/libraries](https://www.drupal.org/project/libraries)
 * [drupal/token](https://www.drupal.org/project/token)
 
 ## Installation
