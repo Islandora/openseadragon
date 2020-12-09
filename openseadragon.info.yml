@@ -4,8 +4,5 @@ description: 'A light-weight, customizable OpenSeadragon field formatter'
 package: Media
 core: 8.x
 dependencies:
-  - libraries
   - token
-library_dependencies:
-  - openseadragon
 configure: openseadragon.admin_settings
