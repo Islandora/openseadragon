@@ -11,33 +11,6 @@ use Drupal\Core\Url;
 use Drupal\Component\Utility\Html;
 
 /**
- * Implements hook_libraries_info().
- */
-function openseadragon_libraries_info() {
-  $libraries['openseadragon'] = [
-    'name' => 'OpenSeadragon plugin',
-    'vendor url' => 'https://openseadragon.github.io/',
-    'download url' => 'https://github.com/openseadragon/openseadragon/master/zipball',
-    'version arguments' => [
-      'file' => 'openseadragon.js',
-      'pattern' => '@openseadragon ([0-9\.-]+)@',
-      'lines' => 1,
-      'columns' => 50,
-    ],
-    'versions' => [
-      '2.4.2' => [
-        'files' => [
-          'js' => [
-            'openseadragon.js',
-          ],
-        ],
-      ],
-    ],
-  ];
-  return $libraries;
-}
-
-/**
  * Implements hook_theme().
  */
 function openseadragon_theme() {
