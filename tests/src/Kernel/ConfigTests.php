@@ -59,7 +59,7 @@ class ConfigTests extends KernelTestBase {
 
     $this->fileProphet->getFileUri()->willReturn($file_uri);
     $this->fileProphet->getMimeType()->willReturn('image/jpeg');
-    $this->fileProphet->url()->willReturn($full_path);
+    $this->fileProphet->createFileUrl(FALSE)->willReturn($full_path);
 
     $mime_guesser = $this->mimeProphet->reveal();
     $file = $this->fileProphet->reveal();
@@ -82,7 +82,7 @@ class ConfigTests extends KernelTestBase {
 
     $this->fileProphet->getFileUri()->willReturn($file_uri);
     $this->fileProphet->getMimeType()->willReturn('application/octet-stream');
-    $this->fileProphet->url()->willReturn($full_path);
+    $this->fileProphet->createFileUrl(FALSE)->willReturn($full_path);
 
     $this->mimeProphet->guess($file_uri)->willReturn('image/jp2');
 
