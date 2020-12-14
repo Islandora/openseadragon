@@ -41,7 +41,7 @@ class ConfigTests extends KernelTestBase {
   /**
    * {@inheritdoc}
    */
-  public function setUp() {
+  public function setUp(): void {
     parent::setUp();
 
     $this->mimeProphet = $this->prophesize(MimeTypeGuesserInterface::class);
