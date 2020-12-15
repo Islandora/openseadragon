@@ -1,13 +1,11 @@
 sudo: true
 language: php
 php:
-  - 7.2
   - 7.3
+  - 7.4
 
 matrix:
     fast_finish: true
-    allow_failures:
-      - php: 7.3
 
 services:
   - mysql
@@ -21,7 +19,6 @@ before_install:
   - export SCRIPT_DIR=$HOME/islandora_ci
   - export DRUPAL_DIR=/opt/drupal
   - export COMPOSER_PATH="/home/travis/.phpenv/versions/$TRAVIS_PHP_VERSION/bin/composer"
-
 install:
   - git clone https://github.com/Islandora/islandora_ci.git $HOME/islandora_ci
   - $SCRIPT_DIR/travis_setup_drupal.sh
