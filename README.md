@@ -1,5 +1,5 @@
 # ![Mascot](https://user-images.githubusercontent.com/5439169/65790675-0242b600-e115-11e9-817f-e31c41bf2ece.png) OpenSeadragon
-[![Build Status](https://travis-ci.com/Islandora/openseadragon.png?branch=8.x-1.x)](https://travis-ci.com/Islandora/openseadragon)
+[![Build Status](https://github.com/islandora/openseadragon/actions/workflows/build-8.x-1.x.yml/badge.svg)](https://github.com/Islandora/openseadragon/actions)
 [![Contribution Guidelines](http://img.shields.io/badge/CONTRIBUTING-Guidelines-blue.svg)](./CONTRIBUTING.md)
 [![LICENSE](https://img.shields.io/badge/license-GPLv2-blue.svg?style=flat-square)](./LICENSE)
 
