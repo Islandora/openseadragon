@@ -1,5 +1,5 @@
 # ![Mascot](https://user-images.githubusercontent.com/5439169/65790675-0242b600-e115-11e9-817f-e31c41bf2ece.png) OpenSeadragon
-[![Build Status](https://github.com/islandora/openseadragon/actions/workflows/build-8.x-1.x.yml/badge.svg)](https://github.com/Islandora/openseadragon/actions)
+[![Build Status](https://github.com/islandora/openseadragon/actions/workflows/build-2.x.yml/badge.svg)](https://github.com/Islandora/openseadragon/actions)
 [![Contribution Guidelines](http://img.shields.io/badge/CONTRIBUTING-Guidelines-blue.svg)](./CONTRIBUTING.md)
 [![LICENSE](https://img.shields.io/badge/license-GPLv2-blue.svg?style=flat-square)](./LICENSE)
 
@@ -14,7 +14,7 @@ Drupal 8 FieldFormatter to display an image or generic file using a IIIF Image s
 ## Installation
 
 This module can be installed via composer and enabled via Drush, like:
-1. `composer require islandora/openseadragon:dev-8.x-1.x`
+1. `composer require islandora/openseadragon:dev-2.x`
 1. `drush pm-en openseadragon`
 
 Downloading/deploying the openseadragon library itself is not neccessary, as it is referenced externally via a CDN.
