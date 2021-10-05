@@ -91,7 +91,7 @@ jobs:
           cd $DRUPAL_DIR
           composer config repositories.local path "$GITHUB_WORKSPACE/build_dir"
           composer config minimum-stability dev
-          composer require "islandora/openseadragon:dev-travis-testing as dev-2.x"
+          composer require "islandora/openseadragon:dev-2.x"
 
       - name: Install modules
         run: |
