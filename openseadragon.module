@@ -70,7 +70,6 @@ function template_preprocess_openseadragon_formatter(&$variables) {
 
     $viewer_settings['sequenceMode'] = count($tile_sources) > 1 && !$viewer_settings['collectionMode'];
     $variables['#attached']['library'] = [
-      'openseadragon/openseadragon',
       'openseadragon/init',
     ];
     $variables['#attached']['drupalSettings']['openseadragon'][$openseadragon_viewer_id] = [
@@ -116,7 +115,6 @@ function template_preprocess_openseadragon_iiif_manifest_block(&$variables) {
   // Attach the viewer, using the image urls obtained from the manifest.
   if (!is_null($iiif_address) && !empty($iiif_address) && !empty($tile_sources)) {
     $variables['#attached']['library'] = [
-      'openseadragon/openseadragon',
       'openseadragon/init',
     ];
     $variables['#attached']['drupalSettings']['openseadragon'][$openseadragon_viewer_id] = [
