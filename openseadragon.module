@@ -79,6 +79,9 @@ function template_preprocess_openseadragon_formatter(&$variables) {
         'id' => $openseadragon_viewer_id,
         'prefixUrl' => 'https://cdnjs.cloudflare.com/ajax/libs/openseadragon/2.4.2/images/',
         'tileSources' => $tile_sources,
+        'loadTilesWithAjax' => TRUE,
+        'ajaxWithCredentials' => TRUE,
+        'ajaxHeaders' => ["Authorization" => "Bearer " . \Drupal::service('jwt.authentication.jwt')->generateToken()],
       ] + $viewer_settings,
     ];
 
@@ -124,6 +127,9 @@ function template_preprocess_openseadragon_iiif_manifest_block(&$variables) {
         'id' => $openseadragon_viewer_id,
         'prefixUrl' => 'https://cdnjs.cloudflare.com/ajax/libs/openseadragon/2.4.2/images/',
         'tileSources' => $tile_sources,
+        'loadTilesWithAjax' => TRUE,
+        'ajaxWithCredentials' => TRUE,
+        'ajaxHeaders' => ["Authorization" => "Bearer " . \Drupal::service('jwt.authentication.jwt')->generateToken()],
       ] + $viewer_settings,
     ];
 
