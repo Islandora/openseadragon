@@ -35,8 +35,6 @@ function openseadragon_theme() {
  * Implements template_preprocess_HOOK().
  */
 function template_preprocess_openseadragon_formatter(&$variables) {
-  $item = $variables['item'];
-  $entity = $variables['entity'];
   // Load the global settings.
   $config = \Drupal::service('openseadragon.config');
   $fileinfo_service = \Drupal::service('openseadragon.fileinfo');
@@ -45,7 +43,6 @@ function template_preprocess_openseadragon_formatter(&$variables) {
   $variables['attributes'] = new Attribute();
 
   $cache_meta = CacheableMetadata::createFromRenderArray($variables)
-    ->addCacheableDependency($entity)
     ->addCacheableDependency($config);
 
   $classes_array = ['openseadragon-viewer'];
@@ -55,6 +52,10 @@ function template_preprocess_openseadragon_formatter(&$variables) {
     $cache_meta->applyTo($variables);
     return;
   }
+
+  $item = $variables['item'];
+  $entity = $variables['entity'];
+  $cache_meta->addCacheableDependency($entity);
 
   // Build the gallery id.
   $id = $entity->id();
