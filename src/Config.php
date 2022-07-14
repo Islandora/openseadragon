@@ -2,6 +2,7 @@
 
 namespace Drupal\openseadragon;
 
+use Drupal\Core\Cache\RefinableCacheableDependencyTrait;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -11,6 +12,8 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * @package Drupal\openseadragon
  */
 class Config implements ConfigInterface {
+
+  use RefinableCacheableDependencyTrait;
 
   /**
    * The openseadragon config.
@@ -49,6 +52,7 @@ class Config implements ConfigInterface {
   public function __construct(ConfigFactoryInterface $configFactory) {
     $this->config = $configFactory->get(Config::$configName);
     $this->configFactory = $configFactory;
+    $this->addCacheableDependency($this->config);
   }
 
   /**
