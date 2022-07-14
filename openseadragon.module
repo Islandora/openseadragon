@@ -6,6 +6,7 @@
  */
 
 use Drupal\file\Entity\File;
+use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\Core\Template\Attribute;
 use Drupal\Core\Url;
 use Drupal\Component\Utility\Html;
@@ -40,10 +41,18 @@ function template_preprocess_openseadragon_formatter(&$variables) {
   $config = \Drupal::service('openseadragon.config');
   $fileinfo_service = \Drupal::service('openseadragon.fileinfo');
 
+  // Initialize our attributes.
+  $variables['attributes'] = new Attribute();
+
+  $cache_meta = CacheableMetadata::createFromRenderArray($variables)
+    ->addCacheableDependency($entity)
+    ->addCacheableDependency($config);
+
   $classes_array = ['openseadragon-viewer'];
   $viewer_settings = $config->getSettings(TRUE);
   $iiif_address = $config->getIiifAddress();
   if (is_null($iiif_address) || empty($iiif_address)) {
+    $cache_meta->applyTo($variables);
     return;
   }
 
@@ -59,6 +68,14 @@ function template_preprocess_openseadragon_formatter(&$variables) {
     if (isset($value['target_id'])) {
       $fid = $value['target_id'];
       $file = File::load($fid);
+      $access_result = $file->access('access', NULL, TRUE);
+      $cache_meta->addCacheableDependency($file)
+        ->addCacheableDependency($access_result);
+
+      if (!$access_result->isAllowed()) {
+        continue;
+      }
+
       $resource = $fileinfo_service->getFileData($file);
       if (isset($resource['full_path'])) {
         $tile_sources[] = rtrim($iiif_address, '/') . '/' . urlencode($resource['full_path']);
@@ -67,7 +84,6 @@ function template_preprocess_openseadragon_formatter(&$variables) {
   }
 
   if (!empty($tile_sources)) {
-
     $viewer_settings['sequenceMode'] = count($tile_sources) > 1 && !$viewer_settings['collectionMode'];
     $variables['#attached']['library'] = [
       'openseadragon/init',
@@ -82,18 +98,31 @@ function template_preprocess_openseadragon_formatter(&$variables) {
       ] + $viewer_settings,
     ];
 
-    $variables['attributes'] = new Attribute();
     $variables['attributes']['class'] = $classes_array;
     $variables['attributes']['id'] = $openseadragon_viewer_id;
   }
+
+  $cache_meta->applyTo($variables);
 }
 
 /**
  * Implements template_preprocess_HOOK().
  */
 function template_preprocess_openseadragon_iiif_manifest_block(&$variables) {
+  $cache_meta = CacheableMetadata::createFromRenderArray($variables);
+
+  // Get the tile sources from the manifest.
+  $parser = \Drupal::service('openseadragon.manifest_parser');
+  $tile_sources = $parser->getTileSources($variables['iiif_manifest_url']);
+
+  if (empty($tile_sources)) {
+    $cache_meta->applyTo($variables);
+    return;
+  }
+
   // Load the global settings.
   $config = \Drupal::service('openseadragon.config');
+  $cache_meta->addCacheableDependency($config);
 
   // Build the gallery id.
   $openseadragon_viewer_id = Html::getUniqueId('openseadragon-viewer-iiif-manifest-block');
@@ -102,15 +131,9 @@ function template_preprocess_openseadragon_iiif_manifest_block(&$variables) {
   $viewer_settings = $config->getSettings(TRUE);
   $iiif_address = $config->getIiifAddress();
 
-  // Get the tile sources from the manifest.
-  $parser = \Drupal::service('openseadragon.manifest_parser');
-  $tile_sources = $parser->getTileSources($variables['iiif_manifest_url']);
-
-  if (empty($tile_sources)) {
-    return;
-  }
-
   $viewer_settings['sequenceMode'] = count($tile_sources) > 1 && !$viewer_settings['collectionMode'];
+
+  $variables['attributes'] = new Attribute();
 
   // Attach the viewer, using the image urls obtained from the manifest.
   if (!is_null($iiif_address) && !empty($iiif_address) && !empty($tile_sources)) {
@@ -127,11 +150,11 @@ function template_preprocess_openseadragon_iiif_manifest_block(&$variables) {
       ] + $viewer_settings,
     ];
 
-    $variables['attributes'] = new Attribute();
     $variables['attributes']['class'] = $classes_array;
     $variables['attributes']['id'] = $openseadragon_viewer_id;
   }
 
+  $cache_meta->applyTo($variables);
 }
 
 /**
