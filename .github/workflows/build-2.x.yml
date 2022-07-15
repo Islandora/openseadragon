@@ -144,11 +144,11 @@ jobs:
         continue-on-error: ${{ matrix.allowed_failure }}
 
       - name: PHPUnit
-        working-directory: ${{ env.DRUPAL_ROOT }}
+        working-directory: ${{ env.DRUPAL_DIR }}
         continue-on-error: ${{ matrix.allowed_failure }}
         env:
           SIMPLETEST_BASE_URL: http://127.0.0.1:8282
           SIMPLETEST_DB: mysql://drupal:drupal@127.0.0.1/drupal
           BROWSERTEST_OUTPUT_DIRECTORY: /opt/drupal/web/sites/simpletest/browser_output
         run: |
-          $DRUPAL_ROOT/vendor/bin/phpunit "--bootstrap=$DRUPAL_WEB_ROOT/core/tests/bootstrap.php" --group $DRUPAL_EXTENSION_NAME --verbose "$GITHUB_WORKSPACE"
+          $DRUPAL_DIR/vendor/bin/phpunit "--bootstrap=$DRUPAL_WEB_ROOT/core/tests/bootstrap.php" --group $DRUPAL_EXTENSION_NAME --verbose "$GITHUB_WORKSPACE"
