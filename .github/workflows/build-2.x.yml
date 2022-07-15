@@ -151,4 +151,4 @@ jobs:
           SIMPLETEST_DB: mysql://drupal:drupal@127.0.0.1/drupal
           BROWSERTEST_OUTPUT_DIRECTORY: /opt/drupal/web/sites/simpletest/browser_output
         run: |
-          phpunit "--bootstrap=$DRUPAL_WEB_ROOT/core/tests/bootstrap.php" --group $DRUPAL_EXTENSION_NAME --verbose "$GITHUB_WORKSPACE"
+          composer exec -- phpunit "--bootstrap=$DRUPAL_WEB_ROOT/core/tests/bootstrap.php" --group $DRUPAL_EXTENSION_NAME --verbose "$GITHUB_WORKSPACE"
