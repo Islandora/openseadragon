@@ -20,13 +20,101 @@ jobs:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         php-versions: ["7.3", "7.4"]
-        drupal-version: ["8.9.11", "9.1.5"]
+        test-suite: ["kernel", "functional", "functional-javascript"]
+        drupal-version: ["9.3.x", "9.4.x-dev"]
+        allowed_failure: [false]
+        mysql: ["5.7"]
+        # include experimental parts
+        include:
+          # 9.3.x on PHP 8.0
+          - drupal-version: '9.3.x'
+            php-versions: '8.0'
+            mysql: "8.0"
+            test-suite: "kernel"
+            allowed_failure: true
+          - drupal-version: '9.3.x'
+            php-versions: '8.0'
+            mysql: "8.0"
+            test-suite: "functional"
+            allowed_failure: true
+          - drupal-version: '9.3.x'
+            php-versions: '8.0'
+            mysql: "8.0"
+            test-suite: "functional-javascript"
+            allowed_failure: true
+          # 9.3.x on PHP 8.1
+          - drupal-version: '9.3.x'
+            php-versions: '8.1'
+            mysql: "8.0"
+            test-suite: "kernel"
+            allowed_failure: true
+          - drupal-version: '9.3.x'
+            php-versions: '8.1'
+            mysql: "8.0"
+            test-suite: "functional"
+            allowed_failure: true
+          - drupal-version: '9.3.x'
+            php-versions: '8.1'
+            mysql: "8.0"
+            test-suite: "functional-javascript"
+            allowed_failure: true
+          # 9.4.x-dev on PHP "8.0"
+          - drupal-version: '9.4.x-dev'
+            php-versions: '8.0'
+            mysql: "8.0"
+            test-suite: "kernel"
+            allowed_failure: true
+          - drupal-version: '9.4.x-dev'
+            php-versions: '8.0'
+            mysql: "8.0"
+            test-suite: "functional"
+            allowed_failure: true
+          - drupal-version: '9.4.x-dev'
+            php-versions: '8.0'
+            mysql: "8.0"
+            test-suite: "functional-javascript"
+            allowed_failure: true
+          # 9.4.x-dev on PHP 8.1
+          - drupal-version: '9.4.x-dev'
+            php-versions: '8.1'
+            mysql: "8.0"
+            test-suite: "kernel"
+            allowed_failure: true
+          - drupal-version: '9.4.x-dev'
+            php-versions: '8.1'
+            mysql: "8.0"
+            test-suite: "functional"
+            allowed_failure: true
+          - drupal-version: '9.4.x-dev'
+            php-versions: '8.1'
+            mysql: "8.0"
+            test-suite: "functional-javascript"
+            allowed_failure: true
+          # 10.0.x-dev on PHP 8.1
+          - drupal-version: '10.0.x-dev'
+            php-versions: '8.1'
+            mysql: "8.0"
+            test-suite: "kernel"
+            allowed_failure: true
+          - drupal-version: '10.0.x-dev'
+            php-versions: '8.1'
+            mysql: "8.0"
+            test-suite: "functional"
+            allowed_failure: true
+          - drupal-version: '10.0.x-dev'
+            php-versions: '8.1'
+            mysql: "8.0"
+            test-suite: "functional-javascript"
+            allowed_failure: true
+
+    name: PHP ${{ matrix.php-versions }} | drupal ${{ matrix.drupal-version }} | mysql ${{ matrix.mysql }} | test-suite ${{ matrix.test-suite }}
 
     services:
       mysql:
-        image: mysql:5.7
+        image: mysql:${{ matrix.mysql }}
         env:
           MYSQL_ALLOW_EMPTY_PASSWORD: yes
           MYSQL_DATABASE: drupal
@@ -63,6 +151,7 @@ jobs:
       - name: Setup Mysql client
         run: |
           sudo apt-get update
+          sudo apt-get remove -y mysql-client mysql-common
           sudo apt-get install -y mysql-client
 
       - name: Set environment variables
@@ -84,6 +173,7 @@ jobs:
           cd $DRUPAL_DIR
           chmod -R u+w web/sites/default
           mkdir -p web/sites/simpletest/browser_output
+        continue-on-error: ${{ matrix.allowed_failure }}
 
       - name: Setup composer paths
         run: |
@@ -97,12 +187,15 @@ jobs:
         run: |
           cd $DRUPAL_DIR/web
           drush --uri=127.0.0.1:8282 en -y openseadragon
+        continue-on-error: ${{ matrix.allowed_failure }}
 
       - name: Test scripts
         run: $SCRIPT_DIR/travis_scripts.sh
+        continue-on-error: ${{ matrix.allowed_failure }}
 
       - name: PHP tests
         run: |
           cd $DRUPAL_DIR/web/core
           php scripts/run-tests.sh --suppress-deprecations --url http://127.0.0.1:8282 --verbose --php `which php` --module "openseadragon"
+        continue-on-error: ${{ matrix.allowed_failure }}
 
