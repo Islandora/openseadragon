@@ -23,7 +23,6 @@ jobs:
       fail-fast: false
       matrix:
         php-versions: ["7.3", "7.4"]
-        test-suite: ["kernel", "functional", "functional-javascript"]
         drupal-version: ["9.3.x", "9.4.x-dev"]
         allowed_failure: [false]
         mysql: ["5.7"]
@@ -33,84 +32,29 @@ jobs:
           - drupal-version: '9.3.x'
             php-versions: '8.0'
             mysql: "8.0"
-            test-suite: "kernel"
-            allowed_failure: true
-          - drupal-version: '9.3.x'
-            php-versions: '8.0'
-            mysql: "8.0"
-            test-suite: "functional"
-            allowed_failure: true
-          - drupal-version: '9.3.x'
-            php-versions: '8.0'
-            mysql: "8.0"
-            test-suite: "functional-javascript"
             allowed_failure: true
           # 9.3.x on PHP 8.1
           - drupal-version: '9.3.x'
             php-versions: '8.1'
             mysql: "8.0"
-            test-suite: "kernel"
-            allowed_failure: true
-          - drupal-version: '9.3.x'
-            php-versions: '8.1'
-            mysql: "8.0"
-            test-suite: "functional"
-            allowed_failure: true
-          - drupal-version: '9.3.x'
-            php-versions: '8.1'
-            mysql: "8.0"
-            test-suite: "functional-javascript"
             allowed_failure: true
           # 9.4.x-dev on PHP "8.0"
           - drupal-version: '9.4.x-dev'
             php-versions: '8.0'
             mysql: "8.0"
-            test-suite: "kernel"
-            allowed_failure: true
-          - drupal-version: '9.4.x-dev'
-            php-versions: '8.0'
-            mysql: "8.0"
-            test-suite: "functional"
-            allowed_failure: true
-          - drupal-version: '9.4.x-dev'
-            php-versions: '8.0'
-            mysql: "8.0"
-            test-suite: "functional-javascript"
             allowed_failure: true
           # 9.4.x-dev on PHP 8.1
           - drupal-version: '9.4.x-dev'
             php-versions: '8.1'
             mysql: "8.0"
-            test-suite: "kernel"
-            allowed_failure: true
-          - drupal-version: '9.4.x-dev'
-            php-versions: '8.1'
-            mysql: "8.0"
-            test-suite: "functional"
-            allowed_failure: true
-          - drupal-version: '9.4.x-dev'
-            php-versions: '8.1'
-            mysql: "8.0"
-            test-suite: "functional-javascript"
             allowed_failure: true
           # 10.0.x-dev on PHP 8.1
           - drupal-version: '10.0.x-dev'
             php-versions: '8.1'
             mysql: "8.0"
-            test-suite: "kernel"
-            allowed_failure: true
-          - drupal-version: '10.0.x-dev'
-            php-versions: '8.1'
-            mysql: "8.0"
-            test-suite: "functional"
-            allowed_failure: true
-          - drupal-version: '10.0.x-dev'
-            php-versions: '8.1'
-            mysql: "8.0"
-            test-suite: "functional-javascript"
             allowed_failure: true
 
-    name: PHP ${{ matrix.php-versions }} | drupal ${{ matrix.drupal-version }} | mysql ${{ matrix.mysql }} | test-suite ${{ matrix.test-suite }}
+    name: PHP ${{ matrix.php-versions }} | drupal ${{ matrix.drupal-version }} | mysql ${{ matrix.mysql }}
 
     services:
       mysql:
