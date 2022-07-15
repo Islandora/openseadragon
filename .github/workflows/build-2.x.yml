@@ -60,7 +60,6 @@ jobs:
       SCRIPT_DIR: ${{ github.workspace }}/islandora_ci
       DRUPAL_DIR: /opt/drupal
       DRUPAL_WEB_ROOT: /opt/drupal/web
-      APACHE_USER: www-data
       DRUPAL_EXTENSION_NAME: openseadragon
 
     services:
@@ -152,6 +151,4 @@ jobs:
           SIMPLETEST_DB: mysql://drupal:drupal@127.0.0.1/drupal
           BROWSERTEST_OUTPUT_DIRECTORY: /opt/drupal/web/sites/simpletest/browser_output
         run: |
-          su "$APACHE_USER" -s /bin/bash <<-EOS
           phpunit "--bootstrap=$DRUPAL_WEB_ROOT/core/tests/bootstrap.php" --group $DRUPAL_EXTENSION_NAME --verbose "$GITHUB_WORKSPACE"
-          EOS
