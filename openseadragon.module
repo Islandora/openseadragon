@@ -69,7 +69,7 @@ function template_preprocess_openseadragon_formatter(&$variables) {
     if (isset($value['target_id'])) {
       $fid = $value['target_id'];
       $file = File::load($fid);
-      $access_result = $file->access('access', NULL, TRUE);
+      $access_result = $file->access('view', NULL, TRUE);
       $cache_meta->addCacheableDependency($file)
         ->addCacheableDependency($access_result);
 
