@@ -77,7 +77,7 @@ function template_preprocess_openseadragon_formatter(&$variables) {
       'fitToAspectRatio' => $viewer_settings['fit_to_aspect_ratio'],
       'options' => [
         'id' => $openseadragon_viewer_id,
-        'prefixUrl' => 'https://cdnjs.cloudflare.com/ajax/libs/openseadragon/2.4.2/images/',
+        'prefixUrl' => 'https://cdnjs.cloudflare.com/ajax/libs/openseadragon/3.1.0/images/',
         'tileSources' => $tile_sources,
       ] + $viewer_settings,
     ];
@@ -122,7 +122,7 @@ function template_preprocess_openseadragon_iiif_manifest_block(&$variables) {
       'fitToAspectRatio' => $viewer_settings['fit_to_aspect_ratio'],
       'options' => [
         'id' => $openseadragon_viewer_id,
-        'prefixUrl' => 'https://cdnjs.cloudflare.com/ajax/libs/openseadragon/2.4.2/images/',
+        'prefixUrl' => 'https://cdnjs.cloudflare.com/ajax/libs/openseadragon/3.1.0/images/',
         'tileSources' => $tile_sources,
       ] + $viewer_settings,
     ];
