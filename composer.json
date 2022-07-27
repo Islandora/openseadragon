@@ -13,6 +13,9 @@
   "require": {
     "drupal/token": "^1.3"
   },
+  "conflict": {
+      "drupal/core": "<=8"
+  },
   "authors": [
     {
       "name": "Islandora Foundation",
