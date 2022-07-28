@@ -4,7 +4,7 @@ name: CI
 
 # Controls when the action will run.
 on:
-  # Triggers the workflow on push or pull request events but only for the 7.x branch
+  # Triggers the workflow on push or pull request events but only for the 2.x branch
   push:
     branches: [ 2.x ]
   pull_request:
@@ -22,37 +22,10 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        php-versions: ["7.3", "7.4"]
-        drupal-version: ["9.3.x", "9.4.x-dev"]
+        php-versions: ["7.4", "8.0", "8.1"]
+        drupal-version: ["9.3.x", "9.4.x", "9.5.x-dev"]
         allowed_failure: [false]
-        mysql: ["5.7"]
-        # include experimental parts
-        include:
-          # 9.3.x on PHP 8.0
-          - drupal-version: '9.3.x'
-            php-versions: '8.0'
-            mysql: "8.0"
-            allowed_failure: true
-          # 9.3.x on PHP 8.1
-          - drupal-version: '9.3.x'
-            php-versions: '8.1'
-            mysql: "8.0"
-            allowed_failure: true
-          # 9.4.x-dev on PHP "8.0"
-          - drupal-version: '9.4.x-dev'
-            php-versions: '8.0'
-            mysql: "8.0"
-            allowed_failure: true
-          # 9.4.x-dev on PHP 8.1
-          - drupal-version: '9.4.x-dev'
-            php-versions: '8.1'
-            mysql: "8.0"
-            allowed_failure: true
-          # 10.0.x-dev on PHP 8.1
-          - drupal-version: '10.0.x-dev'
-            php-versions: '8.1'
-            mysql: "8.0"
-            allowed_failure: true
+        mysql: ["8.0"]
 
     name: PHP ${{ matrix.php-versions }} | drupal ${{ matrix.drupal-version }} | mysql ${{ matrix.mysql }}
     env:
