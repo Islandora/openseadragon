@@ -2,13 +2,15 @@
 
 namespace Drupal\openseadragon;
 
+use Drupal\Core\Cache\CacheableDependencyInterface;
+
 /**
  * Special config class.
  *
  * This class allows the default config structure to remain, this is used to
  * clean up the settings form values and remove extra unnecessary arrays.
  */
-interface ConfigInterface {
+interface ConfigInterface extends CacheableDependencyInterface {
 
   /**
    * Get the default viewer settings.
