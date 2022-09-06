@@ -1,0 +1,19 @@
+---
+openseadragon.settings:
+  type: config_object
+  mapping:
+    default_options:
+      type: ignore
+      label: Mapping of options to pass off to OpenSeadragon
+    iiif_server:
+      type: string
+      label: The IIIF server to which to route requests
+    manifest_view:
+      type: string
+      label: The target manifest view
+
+block.settings.openseadragon_block:
+  type: block_settings
+  mapping:
+    iiif_manifest_url:
+      type: string
