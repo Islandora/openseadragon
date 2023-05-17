@@ -4,7 +4,7 @@
  * @file
  * Displays OpenSeadragon viewer.
  */
-(function($) {
+(function(once) {
     'use strict';
 
     /**
@@ -21,16 +21,19 @@
             Object.keys(settings.openseadragon).forEach(function(osdViewerId) {
               // Use custom element #id if set.
               base = '#' + osdViewerId;
-              $(once('openSeadragonViewer', $(base, context))).each(function () {
+              once('openSeadragonViewer', base, context).forEach(function () {
                     Drupal.openSeadragonViewer[base] = new Drupal.openSeadragonViewer(base, settings.openseadragon[osdViewerId]);
               });
             });
         },
-        detach: function() {
-            $(base).removeClass('openSeadragonViewer-processed');
-            $(base).removeData();
-            $(base).off();
-            delete Drupal.openSeadragonViewer[base];
+        detach: function(context, settings, trigger) {
+            Object.keys(settings.openseadragon).forEach(function(osdViewerId) {
+                // Use custom element #id if set.
+                base = '#' + osdViewerId;
+                once.remove('openSeadragonViewer', base, context).forEach(function () {
+                    delete Drupal.openSeadragonViewer[base];
+                });
+            });
         }
     };
 
