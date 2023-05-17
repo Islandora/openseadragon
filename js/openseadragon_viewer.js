@@ -4,7 +4,7 @@
  * @file
  * Displays OpenSeadragon viewer.
  */
-(function(once) {
+(function($, once) {
     'use strict';
 
     /**
@@ -122,4 +122,4 @@
         }
 
     };
-})(once);
+})(jQuery, once);
