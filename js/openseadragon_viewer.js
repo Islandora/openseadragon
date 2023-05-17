@@ -4,7 +4,7 @@
  * @file
  * Displays OpenSeadragon viewer.
  */
-(function($) {
+(function(once) {
     'use strict';
 
     /**
@@ -21,7 +21,7 @@
             Object.keys(settings.openseadragon).forEach(function(osdViewerId) {
               // Use custom element #id if set.
               base = '#' + osdViewerId;
-              $(once('openSeadragonViewer', $(base, context))).each(function () {
+              once('openSeadragonViewer', base, context).each(function () {
                     Drupal.openSeadragonViewer[base] = new Drupal.openSeadragonViewer(base, settings.openseadragon[osdViewerId]);
               });
             });
