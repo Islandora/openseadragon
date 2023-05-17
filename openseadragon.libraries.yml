@@ -6,9 +6,8 @@ init:
     component:
       css/openseadragon.css: {}
   dependencies:
-    - core/jquery
-    - core/jquery.once
     - core/drupal
+    - core/once
     - core/drupalSettings
     - openseadragon/openseadragon
 openseadragon:
