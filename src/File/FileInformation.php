@@ -23,7 +23,7 @@ class FileInformation implements FileInformationInterface {
   /**
    * FileInformation constructor.
    *
-   * @param \Symfony\Component\HttpFoundation\File\MimeType\MimeTypeGuesserInterface $mimeTypeGuesser
+   * @param \Symfony\Component\Mime\MimeTypesInterface $mimeTypeGuesser
    *   File mimetype guesser interface.
    */
   public function __construct(MimeTypesInterface $mimeTypeGuesser) {
