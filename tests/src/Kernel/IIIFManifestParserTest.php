@@ -11,6 +11,7 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Psr\Log\LoggerInterface;
 
 /**
@@ -21,6 +22,8 @@ use Psr\Log\LoggerInterface;
  * @coversDefaultClass Drupal\openseadragon\IIIFManifestParser
  */
 class IIIFManifestParserTest extends KernelTestBase {
+
+  use ProphecyTrait;
 
   /**
    * {@inheritdoc}
