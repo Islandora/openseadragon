@@ -96,6 +96,11 @@ function template_preprocess_openseadragon_formatter(&$variables) {
         'id' => $openseadragon_viewer_id,
         'prefixUrl' => 'https://cdnjs.cloudflare.com/ajax/libs/openseadragon/2.4.2/images/',
         'tileSources' => $tile_sources,
+
+          // for dsu-utsc
+         'loadTilesWithAjax' => TRUE,
+         'ajaxWithCredentials' => TRUE,
+         'ajaxHeaders' => ["Authorization" => "Bearer " . \Drupal::service('jwt.authentication.jwt')->generateToken(), 'token' => \Drupal::service('jwt.authentication.jwt')->generateToken() ],
       ] + $viewer_settings,
     ];
 
@@ -114,7 +119,7 @@ function template_preprocess_openseadragon_iiif_manifest_block(&$variables) {
 
   // Get the tile sources from the manifest.
   $parser = \Drupal::service('openseadragon.manifest_parser');
-  $tile_sources = $parser->getTileSources($variables['iiif_manifest_url']);
+  $tile_sources = $parser->getTileSources($variables['iiif_manifest_url'], \Drupal::service('jwt.authentication.jwt')->generateToken());
 
   if (empty($tile_sources)) {
     $cache_meta->applyTo($variables);
@@ -148,6 +153,11 @@ function template_preprocess_openseadragon_iiif_manifest_block(&$variables) {
         'id' => $openseadragon_viewer_id,
         'prefixUrl' => 'https://cdnjs.cloudflare.com/ajax/libs/openseadragon/2.4.2/images/',
         'tileSources' => $tile_sources,
+
+        // for dsu-utsc
+        'loadTilesWithAjax' => TRUE,
+        'ajaxWithCredentials' => TRUE,
+        'ajaxHeaders' => ["Authorization" => "Bearer " . \Drupal::service('jwt.authentication.jwt')->generateToken(), 'token' => \Drupal::service('jwt.authentication.jwt')->generateToken() ],
       ] + $viewer_settings,
     ];
 
