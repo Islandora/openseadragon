@@ -64,11 +64,13 @@ class IIIFManifestParser {
    *
    * @param string $manifest_url
    *   The location of the IIIF manifest, which can include tokens.
+   * @param string $access_token
+   *   The JWT Access token.
    *
    * @return array
    *   The URLs of all the tile sources in a manifest.
    */
-  public function getTileSources($manifest_url, $access_token=NULL) {
+  public function getTileSources($manifest_url, $access_token = NULL) {
 
     // Try to construct the URL out of a tokenized string
     // if the node is available.
@@ -85,11 +87,11 @@ class IIIFManifestParser {
 
     try {
       // Request the manifest.
-      //$manifest_response = $this->httpClient->get($manifest_url);
+      // $manifest_response = $this->httpClient->get($manifest_url);
       $manifest_response = $this->httpClient->request('GET', $manifest_url, [
         'headers' => [
-            'Authorization' => 'Bearer ' . $access_token,        
-        ]
+          'Authorization' => 'Bearer ' . $access_token,
+        ],
       ]);
 
       // Decode the manifest json.

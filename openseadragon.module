@@ -89,6 +89,7 @@ function template_preprocess_openseadragon_formatter(&$variables) {
     $variables['#attached']['library'] = [
       'openseadragon/init',
     ];
+    $access_token = \Drupal::service('jwt.authentication.jwt')->generateToken();
     $variables['#attached']['drupalSettings']['openseadragon'][$openseadragon_viewer_id] = [
       'basePath' => Url::fromUri($iiif_address),
       'fitToAspectRatio' => $viewer_settings['fit_to_aspect_ratio'],
@@ -97,10 +98,13 @@ function template_preprocess_openseadragon_formatter(&$variables) {
         'prefixUrl' => 'https://cdnjs.cloudflare.com/ajax/libs/openseadragon/2.4.2/images/',
         'tileSources' => $tile_sources,
 
-          // for dsu-utsc
-         'loadTilesWithAjax' => TRUE,
-         'ajaxWithCredentials' => TRUE,
-         'ajaxHeaders' => ["Authorization" => "Bearer " . \Drupal::service('jwt.authentication.jwt')->generateToken(), 'token' => \Drupal::service('jwt.authentication.jwt')->generateToken() ],
+          // For dsu-utsc.
+        'loadTilesWithAjax' => TRUE,
+        'ajaxWithCredentials' => TRUE,
+        'ajaxHeaders' => [
+          "Authorization" => "Bearer " . $access_token,
+          'token' => $access_token,
+        ],
       ] + $viewer_settings,
     ];
 
@@ -116,10 +120,10 @@ function template_preprocess_openseadragon_formatter(&$variables) {
  */
 function template_preprocess_openseadragon_iiif_manifest_block(&$variables) {
   $cache_meta = CacheableMetadata::createFromRenderArray($variables);
-
+  $access_token = \Drupal::service('jwt.authentication.jwt')->generateToken();
   // Get the tile sources from the manifest.
   $parser = \Drupal::service('openseadragon.manifest_parser');
-  $tile_sources = $parser->getTileSources($variables['iiif_manifest_url'], \Drupal::service('jwt.authentication.jwt')->generateToken());
+  $tile_sources = $parser->getTileSources($variables['iiif_manifest_url'], $access_token);
 
   if (empty($tile_sources)) {
     $cache_meta->applyTo($variables);
@@ -154,10 +158,13 @@ function template_preprocess_openseadragon_iiif_manifest_block(&$variables) {
         'prefixUrl' => 'https://cdnjs.cloudflare.com/ajax/libs/openseadragon/2.4.2/images/',
         'tileSources' => $tile_sources,
 
-        // for dsu-utsc
+        // For dsu-utsc.
         'loadTilesWithAjax' => TRUE,
         'ajaxWithCredentials' => TRUE,
-        'ajaxHeaders' => ["Authorization" => "Bearer " . \Drupal::service('jwt.authentication.jwt')->generateToken(), 'token' => \Drupal::service('jwt.authentication.jwt')->generateToken() ],
+        'ajaxHeaders' => [
+          "Authorization" => "Bearer " . $access_token,
+          'token' => $access_token,
+        ],
       ] + $viewer_settings,
     ];
 
