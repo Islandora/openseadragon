@@ -6,7 +6,8 @@ use Drupal\Core\Url;
 use Drupal\file\Entity\File;
 use Drupal\KernelTests\KernelTestBase;
 use Drupal\openseadragon\File\FileInformation;
-use Symfony\Component\HttpFoundation\File\MimeType\MimeTypeGuesserInterface;
+use Prophecy\PhpUnit\ProphecyTrait;
+use Symfony\Component\Mime\MimeTypesInterface;
 
 /**
  * Tests the Config class.
@@ -16,6 +17,9 @@ use Symfony\Component\HttpFoundation\File\MimeType\MimeTypeGuesserInterface;
  * @coversDefaultClass Drupal\openseadragon\File\FileInformation
  */
 class ConfigTests extends KernelTestBase {
+
+  use ProphecyTrait;
+
   /**
    * {@inheritdoc}
    */
@@ -27,14 +31,14 @@ class ConfigTests extends KernelTestBase {
   /**
    * The mimetype guesser prophecy.
    *
-   * @var Prophecy\Prophet
+   * @var \Prophecy\Prophecy\ObjectProphecy
    */
   private $mimeProphet;
 
   /**
    * The file entity prophecy.
    *
-   * @var Prophecy\Prophet
+   * @var \Prophecy\Prophecy\ObjectProphecy
    */
   private $fileProphet;
 
@@ -44,7 +48,7 @@ class ConfigTests extends KernelTestBase {
   public function setUp(): void {
     parent::setUp();
 
-    $this->mimeProphet = $this->prophesize(MimeTypeGuesserInterface::class);
+    $this->mimeProphet = $this->prophesize(MimeTypesInterface::class);
     $this->fileProphet = $this->prophesize(File::class);
   }
 

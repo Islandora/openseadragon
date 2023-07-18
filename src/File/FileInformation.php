@@ -4,7 +4,7 @@ namespace Drupal\openseadragon\File;
 
 use Drupal\file\Entity\File;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\HttpFoundation\File\MimeType\MimeTypeGuesserInterface;
+use Symfony\Component\Mime\MimeTypesInterface;
 
 /**
  * Gets file information for the image to be viewed.
@@ -16,17 +16,17 @@ class FileInformation implements FileInformationInterface {
   /**
    * File MimeType Guesser to use extension to determine file type.
    *
-   * @var \Symfony\Component\HttpFoundation\File\MimeType\MimeTypeGuesserInterface
+   * @var \Symfony\Component\Mime\MimeTypesInterface
    */
   private $mimetypeGuesser;
 
   /**
    * FileInformation constructor.
    *
-   * @param \Symfony\Component\HttpFoundation\File\MimeType\MimeTypeGuesserInterface $mimeTypeGuesser
+   * @param \Symfony\Component\Mime\MimeTypesInterface $mimeTypeGuesser
    *   File mimetype guesser interface.
    */
-  public function __construct(MimeTypeGuesserInterface $mimeTypeGuesser) {
+  public function __construct(MimeTypesInterface $mimeTypeGuesser) {
     $this->mimetypeGuesser = $mimeTypeGuesser;
   }
 
