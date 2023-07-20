@@ -4,7 +4,7 @@ namespace Drupal\openseadragon\File;
 
 use Drupal\file\Entity\File;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\Mime\MimeTypesInterface;
+use Symfony\Component\Mime\MimeTypeGuesserInterface;
 
 /**
  * Gets file information for the image to be viewed.
@@ -16,17 +16,17 @@ class FileInformation implements FileInformationInterface {
   /**
    * File MimeType Guesser to use extension to determine file type.
    *
-   * @var \Symfony\Component\Mime\MimeTypesInterface
+   * @var \Symfony\Component\Mime\MimeTypeGuesserInterface
    */
   private $mimetypeGuesser;
 
   /**
    * FileInformation constructor.
    *
-   * @param \Symfony\Component\Mime\MimeTypesInterface $mimeTypeGuesser
+   * @param \Symfony\Component\Mime\MimeTypeGuesserInterface $mimeTypeGuesser
    *   File mimetype guesser interface.
    */
-  public function __construct(MimeTypesInterface $mimeTypeGuesser) {
+  public function __construct(MimeTypeGuesserInterface $mimeTypeGuesser) {
     $this->mimetypeGuesser = $mimeTypeGuesser;
   }
 
@@ -51,7 +51,7 @@ class FileInformation implements FileInformationInterface {
     $mime_type = $file->getMimeType();
     if (strpos($mime_type, 'image/') === FALSE) {
       // Try a better mimetype guesser.
-      $mime_type = $this->mimetypeGuesser->guess($uri);
+      $mime_type = $this->mimetypeGuesser->guessMimeType($uri);
       if (strpos($mime_type, 'image/') === FALSE) {
         // If we still don't have an image. Exit.
         return $output;
