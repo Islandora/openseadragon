@@ -13,7 +13,7 @@ jobs:
     - name: Mirror + trigger CI
       uses: SvanBoxel/gitlab-mirror-and-ci-action@master
       with:
-        args: "https://git.drupalcode.org/project/jsonld"
+        args: "https://git.drupalcode.org/project/openseadragon"
       env:
         FOLLOW_TAGS: "true"
         FORCE_PUSH: "false"
