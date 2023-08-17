@@ -89,6 +89,7 @@ function template_preprocess_openseadragon_formatter(&$variables) {
     $variables['#attached']['library'] = [
       'openseadragon/init',
     ];
+    $access_token = \Drupal::service('jwt.authentication.jwt')->generateToken();
     $variables['#attached']['drupalSettings']['openseadragon'][$openseadragon_viewer_id] = [
       'basePath' => Url::fromUri($iiif_address),
       'fitToAspectRatio' => $viewer_settings['fit_to_aspect_ratio'],
@@ -110,11 +111,12 @@ function template_preprocess_openseadragon_formatter(&$variables) {
  * Implements template_preprocess_HOOK().
  */
 function template_preprocess_openseadragon_iiif_manifest_block(&$variables) {
+  $access_token = \Drupal::service('jwt.authentication.jwt')->generateToken();
   $cache_meta = CacheableMetadata::createFromRenderArray($variables);
 
   // Get the tile sources from the manifest.
   $parser = \Drupal::service('openseadragon.manifest_parser');
-  $tile_sources = $parser->getTileSources($variables['iiif_manifest_url']);
+  $tile_sources = $parser->getTileSources($variables['iiif_manifest_url'], $access_token);
 
   if (empty($tile_sources)) {
     $cache_meta->applyTo($variables);
