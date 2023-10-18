@@ -16,6 +16,13 @@ class Config implements ConfigInterface {
   use RefinableCacheableDependencyTrait;
 
   /**
+   * The config factory service.
+   *
+   * @var \Drupal\Core\Config\ConfigFactoryInterface
+   */
+  protected $configFactory;
+
+  /**
    * The openseadragon config.
    *
    * @var \Drupal\Core\Config\ImmutableConfig
