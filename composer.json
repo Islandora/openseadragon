@@ -16,6 +16,9 @@
   "conflict": {
       "drupal/core": "<9.1"
   },
+  "suggest": {
+      "drupal/coi": "Some configuration fields work with Config Override Inspector."
+  },
   "authors": [
     {
       "name": "Islandora Foundation",
