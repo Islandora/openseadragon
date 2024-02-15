@@ -82,7 +82,20 @@ class IIIFManifestParser {
     // If the URL is relative, make it absolute.
     if (substr($manifest_url, 0, 4) !== "http") {
       $manifest_url = ltrim($manifest_url, '/');
-      $manifest_url = Url::fromRoute('<front>', [], ['absolute' => TRUE])->toString() . $manifest_url;
+
+      // Check if the URL starts with "/fr/" and adjust accordingly.
+      // https://redmine.library.yorku.ca/issues/3957
+      if (strpos($manifest_url, '/fr/') === 0) {
+        // If the URL starts with "/fr/", don't trim the first slash.
+        $append_slash = '';
+      }
+      else {
+        // If the URL doesn't start with "/fr/", trim the first slash.
+        $append_slash = '/';
+      }
+
+      // Construct the absolute URL.
+      $manifest_url = Url::fromRoute('<front>', [], ['absolute' => TRUE])->toString() . $append_slash . $manifest_url;
     }
 
     try {
