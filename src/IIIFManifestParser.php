@@ -64,11 +64,13 @@ class IIIFManifestParser {
    *
    * @param string $manifest_url
    *   The location of the IIIF manifest, which can include tokens.
+   * @param string $access_token
+   *   The JWT Access token.
    *
    * @return array
    *   The URLs of all the tile sources in a manifest.
    */
-  public function getTileSources($manifest_url) {
+  public function getTileSources($manifest_url, $access_token = NULL) {
 
     // Try to construct the URL out of a tokenized string
     // if the node is available.
@@ -80,12 +82,34 @@ class IIIFManifestParser {
     // If the URL is relative, make it absolute.
     if (substr($manifest_url, 0, 4) !== "http") {
       $manifest_url = ltrim($manifest_url, '/');
-      $manifest_url = Url::fromRoute('<front>', [], ['absolute' => TRUE])->toString() . $manifest_url;
+
+      // Check if the URL starts with "/fr/" and adjust accordingly.
+      // https://redmine.library.yorku.ca/issues/3957
+      if (strpos($manifest_url, '/fr/') === 0) {
+        // If the URL starts with "/fr/", don't trim the first slash.
+        $append_slash = '';
+      }
+      else {
+        // If the URL doesn't start with "/fr/", trim the first slash.
+        $append_slash = '/';
+      }
+
+      // Construct the absolute URL.
+      $manifest_url = Url::fromRoute('<front>', [], ['absolute' => TRUE])->toString() . $append_slash . $manifest_url;
     }
 
     try {
       // Request the manifest.
-      $manifest_response = $this->httpClient->get($manifest_url);
+      if (empty($access_token)) {
+        $manifest_response = $this->httpClient->get($manifest_url);
+      }
+      else {
+        $manifest_response = $this->httpClient->request('GET', $manifest_url, [
+          'headers' => [
+            'Authorization' => 'Bearer ' . $access_token,
+          ],
+        ]);
+      }
 
       // Decode the manifest json.
       $manifest_string = (string) $manifest_response->getBody();
