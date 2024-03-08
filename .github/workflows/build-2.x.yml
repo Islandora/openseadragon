@@ -26,6 +26,9 @@ jobs:
         drupal-version: ["10.1.x", "10.2.x", "10.3.x-dev"]
         allowed_failure: [false]
         mysql: ["8.0"]
+        exclude:
+          - php-versions: "8.3"
+            drupal-version: "10.1.x"
 
     name: PHP ${{ matrix.php-versions }} | drupal ${{ matrix.drupal-version }} | mysql ${{ matrix.mysql }}
     env:
