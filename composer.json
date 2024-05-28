@@ -10,6 +10,9 @@
   "support": {
     "issues": "https://github.com/Islandora/documentation/issues"
   },
+  "replace": {
+    "islandora/openseadragon": "self.version"
+  },
   "require": {
     "drupal/token": "^1.3"
   },
