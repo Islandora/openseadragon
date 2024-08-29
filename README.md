@@ -14,7 +14,7 @@ Drupal FieldFormatter to display an image or generic file using a IIIF Image ser
 ## Installation
 
 This module can be installed via composer and enabled via Drush, like:
-1. `composer require islandora/openseadragon:^2.0`
+1. `composer require drupal/openseadragon:^2.0`
 1. `drush pm-en openseadragon`
 
 Downloading/deploying the openseadragon library itself is not neccessary, as it is referenced externally via a CDN.

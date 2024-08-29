@@ -1,5 +1,5 @@
 {
-  "name": "islandora/openseadragon",
+  "name": "drupal/openseadragon",
   "description": "OpenSeadragon",
   "type": "drupal-module",
   "minimum-stability": "dev",
