@@ -23,7 +23,7 @@ class ConfigTests extends KernelTestBase {
   /**
    * {@inheritdoc}
    */
-  public static $modules = [
+  protected static $modules = [
     'system',
     'openseadragon',
   ];
