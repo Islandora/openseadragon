@@ -161,7 +161,7 @@ function template_preprocess_openseadragon_iiif_manifest_block(&$variables) {
 /**
  * Implements hook_file_mimetype_mapping_alter().
  */
-function islandora_image_file_mimetype_mapping_alter(&$mapping) {
+function openseadragon_file_mimetype_mapping_alter(&$mapping) {
   // Add new MIME type 'image/jp2'.
   if (!in_array('image/jp2', $mapping['mimetypes'])) {
     $mapping['mimetypes']['JP2'] = 'image/jp2';
