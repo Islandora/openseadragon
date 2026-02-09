@@ -51,7 +51,7 @@ class OpenseadragonBlock extends BlockBase implements ContainerFactoryPluginInte
     $plugin_definition,
     RouteMatchInterface $route_match,
     EntityStorageInterface $views_storage,
-    ConfigInterface $seadragon_config
+    ConfigInterface $seadragon_config,
   ) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
     $this->routeMatch = $route_match;
@@ -66,7 +66,7 @@ class OpenseadragonBlock extends BlockBase implements ContainerFactoryPluginInte
     ContainerInterface $container,
     array $configuration,
     $plugin_id,
-    $plugin_definition
+    $plugin_definition,
   ) {
     return new static(
       $configuration,

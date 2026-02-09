@@ -51,7 +51,7 @@ class IIIFManifestParser {
     Token $token,
     RouteMatchInterface $route_match,
     Client $http_client,
-    LoggerInterface $logger
+    LoggerInterface $logger,
   ) {
     $this->token = $token;
     $this->routeMatch = $route_match;
