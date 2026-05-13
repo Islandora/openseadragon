@@ -12,10 +12,10 @@ init:
     - openseadragon/openseadragon
 openseadragon:
   remote: https://openseadragon.github.io
-  version: 2.4.2
+  version: 6.0.2
   license:
     name: New BSD
     url: https://openseadragon.github.io/license/
     gpl-compatible: true
   js:
-    https://cdnjs.cloudflare.com/ajax/libs/openseadragon/2.4.2/openseadragon.min.js: { type: external, minified: true }
+    https://cdn.jsdelivr.net/npm/openseadragon@6.0.2/build/openseadragon/openseadragon.min.js: { type: external, minified: true }
