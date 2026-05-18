@@ -529,7 +529,7 @@ class OpenSeadragonSettingsForm extends ConfigFormBase {
         'pinchRotate' => [
           '#type' => 'checkbox',
           '#title' => $this->t('Pinch Rotate'),
-          '#default_value' => $settings['gestureSettingsMouse']['pinchRotate'],
+          '#default_value' => $settings['gestureSettingsTouch']['pinchRotate'],
           '#description' => $this->t('If pinchRotate is true, the user will have the ability to rotate the image using their fingers.'),
         ],
       ],
@@ -588,7 +588,7 @@ class OpenSeadragonSettingsForm extends ConfigFormBase {
         'pinchRotate' => [
           '#type' => 'checkbox',
           '#title' => $this->t('Pinch Rotate'),
-          '#default_value' => $settings['gestureSettingsMouse']['pinchRotate'],
+          '#default_value' => $settings['gestureSettingsPen']['pinchRotate'],
           '#description' => $this->t('If pinchRotate is true, the user will have the ability to rotate the image using their fingers.'),
         ],
       ],
@@ -641,13 +641,13 @@ class OpenSeadragonSettingsForm extends ConfigFormBase {
           '#title' => $this->t('Flick Momentum'),
           '#size' => 10,
           '#element_validate' => [[$this, 'elementValidateNumber']],
-          '#default_value' => $settings['gestureSettingsPen']['flickMomentum'],
+          '#default_value' => $settings['gestureSettingsUnknown']['flickMomentum'],
           '#description' => $this->t('If flickEnabled is true, the momentum factor for the flick gesture.'),
         ],
         'pinchRotate' => [
           '#type' => 'checkbox',
           '#title' => $this->t('Pinch Rotate'),
-          '#default_value' => $settings['gestureSettingsMouse']['pinchRotate'],
+          '#default_value' => $settings['gestureSettingsUnknown']['pinchRotate'],
           '#description' => $this->t('If pinchRotate is true, the user will have the ability to rotate the image using their fingers.'),
         ],
       ],
