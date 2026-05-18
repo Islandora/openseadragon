@@ -746,12 +746,6 @@ class OpenSeadragonSettingsForm extends ConfigFormBase {
             '#default_value' => $settings['navigatorWidth'],
             '#description' => $this->t('Specifies the size of the navigator minimap (see Navigator Position). If specified, Navigator Size Ratio and Navigator Maintain Size Ratio are ignored.'),
           ],
-          'navigatorAutoResize' => [
-            '#type' => 'checkbox',
-            '#title' => $this->t('Navigator Auto Resize'),
-            '#default_value' => $settings['navigatorAutoResize'],
-            '#description' => $this->t('Set to false to prevent polling for navigator size changes. Useful for providing custom resize behavior. Setting to false can also improve performance when the navigator is configured to a fixed size.'),
-          ],
           'navigatorAutoFade' => [
             '#type' => 'checkbox',
             '#title' => $this->t('Navigator Auto Fade'),
