@@ -35,4 +35,3 @@ jobs:
            ghcr.io/islandora/ci:${{ matrix.drupal-version }}-php${{ matrix.php-versions }}
         env:
           ENABLE_MODULES: openseadragon
-

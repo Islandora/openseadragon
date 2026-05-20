@@ -529,7 +529,7 @@ class OpenSeadragonSettingsForm extends ConfigFormBase {
         'pinchRotate' => [
           '#type' => 'checkbox',
           '#title' => $this->t('Pinch Rotate'),
-          '#default_value' => $settings['gestureSettingsMouse']['pinchRotate'],
+          '#default_value' => $settings['gestureSettingsTouch']['pinchRotate'],
           '#description' => $this->t('If pinchRotate is true, the user will have the ability to rotate the image using their fingers.'),
         ],
       ],
@@ -588,7 +588,7 @@ class OpenSeadragonSettingsForm extends ConfigFormBase {
         'pinchRotate' => [
           '#type' => 'checkbox',
           '#title' => $this->t('Pinch Rotate'),
-          '#default_value' => $settings['gestureSettingsMouse']['pinchRotate'],
+          '#default_value' => $settings['gestureSettingsPen']['pinchRotate'],
           '#description' => $this->t('If pinchRotate is true, the user will have the ability to rotate the image using their fingers.'),
         ],
       ],
@@ -641,13 +641,13 @@ class OpenSeadragonSettingsForm extends ConfigFormBase {
           '#title' => $this->t('Flick Momentum'),
           '#size' => 10,
           '#element_validate' => [[$this, 'elementValidateNumber']],
-          '#default_value' => $settings['gestureSettingsPen']['flickMomentum'],
+          '#default_value' => $settings['gestureSettingsUnknown']['flickMomentum'],
           '#description' => $this->t('If flickEnabled is true, the momentum factor for the flick gesture.'),
         ],
         'pinchRotate' => [
           '#type' => 'checkbox',
           '#title' => $this->t('Pinch Rotate'),
-          '#default_value' => $settings['gestureSettingsMouse']['pinchRotate'],
+          '#default_value' => $settings['gestureSettingsUnknown']['pinchRotate'],
           '#description' => $this->t('If pinchRotate is true, the user will have the ability to rotate the image using their fingers.'),
         ],
       ],
@@ -745,12 +745,6 @@ class OpenSeadragonSettingsForm extends ConfigFormBase {
             '#element_validate' => [[$this, 'elementValidateNumber']],
             '#default_value' => $settings['navigatorWidth'],
             '#description' => $this->t('Specifies the size of the navigator minimap (see Navigator Position). If specified, Navigator Size Ratio and Navigator Maintain Size Ratio are ignored.'),
-          ],
-          'navigatorAutoResize' => [
-            '#type' => 'checkbox',
-            '#title' => $this->t('Navigator Auto Resize'),
-            '#default_value' => $settings['navigatorAutoResize'],
-            '#description' => $this->t('Set to false to prevent polling for navigator size changes. Useful for providing custom resize behavior. Setting to false can also improve performance when the navigator is configured to a fixed size.'),
           ],
           'navigatorAutoFade' => [
             '#type' => 'checkbox',

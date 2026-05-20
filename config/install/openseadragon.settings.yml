@@ -82,7 +82,6 @@ default_options:
   navigatorLeft: ''
   navigatorHeight: ''
   navigatorWidth: ''
-  navigatorAutoResize : TRUE
   navigatorAutoFade : TRUE
   navigatorRotate : TRUE
   controlsFadeDelay : 2000
