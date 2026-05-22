@@ -8,7 +8,7 @@
 /**
  * Attach openseadragon-bookmark-url.js to all pages.
  *
- * @todo: It would be good to target this better?
+ * @todo: It would be good to target this better, e.g. load only when OSD is loaded.
  *
  * {@inheritDoc}
  */
