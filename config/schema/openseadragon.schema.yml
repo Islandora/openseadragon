@@ -1,16 +1,654 @@
----
+# Schema for the configuration files of the OpenSeadragon module.
+
+# Reusable gesture-settings type, used by four gestureSettings* keys.
+openseadragon.gesture_settings:
+  type: mapping
+  label: 'Gesture settings'
+  mapping:
+    scrollToZoom:
+      type: boolean
+      label: 'Scroll to zoom'
+    clickToZoom:
+      type: boolean
+      label: 'Click to zoom'
+    dblClickToZoom:
+      type: boolean
+      label: 'Double-click to zoom'
+    pinchToZoom:
+      type: boolean
+      label: 'Pinch to zoom'
+    flickEnabled:
+      type: boolean
+      label: 'Flick / momentum panning enabled'
+    flickMinSpeed:
+      type: integer
+      label: 'Minimum speed to trigger a flick (pixels/second)'
+    flickMomentum:
+      type: float
+      label: 'Flick momentum (0–1)'
+    pinchRotate:
+      type: boolean
+      label: 'Pinch-to-rotate enabled'
+
+# Root config object for openseadragon.settings.
 openseadragon.settings:
   type: config_object
+  label: 'OpenSeadragon settings'
   mapping:
-    default_options:
-      type: ignore
-      label: Mapping of options to pass off to OpenSeadragon
     iiif_server:
-      type: string
-      label: The IIIF server to which to route requests
+      type: uri
+      label: 'IIIF Image Server base URL'
+    default_options:
+      type: mapping
+      label: 'Default OpenSeadragon viewer options'
+      mapping:
+
+        # ── Drupal-module-specific option ────────────────────────────────────
+        fit_to_aspect_ratio:
+          type: boolean
+          label: 'Fit viewer to image aspect ratio'
+
+        # ── Viewer chrome / accessibility ─────────────────────────────────
+        tabIndex:
+          type: integer
+          label: 'Tab index for the viewer canvas element'
+        debugMode:
+          type: boolean
+          label: 'Enable debug mode (draws tile borders and logs to console)'
+        debugGridColor:
+          type: string
+          label: 'Colour used for debug grid lines (CSS colour string)'
+
+        # ── Rendering / blending ──────────────────────────────────────────
+        blendTime:
+          type: float
+          label: 'Time in seconds to blend tiles into view'
+        alwaysBlend:
+          type: boolean
+          label: 'Always blend tiles (even first load)'
+        immediateRender:
+          type: boolean
+          label: 'Render tiles immediately without delay'
+        opacity:
+          type: float
+          label: 'Default opacity of the tiled image (0–1)'
+        compositeOperation:
+          type: string
+          label: 'Canvas composite operation (e.g. "source-over"; empty = browser default)'
+        placeholderFillStyle:
+          type: string
+          label: 'Fill style for tile placeholders while loading (colour, gradient, or empty)'
+        useCanvas:
+          type: boolean
+          label: 'Use the HTML5 canvas element for rendering'
+        minPixelRatio:
+          type: float
+          label: 'Minimum pixel ratio required to display a tile level'
+        smoothTileEdgesMinZoom:
+          type: float
+          label: 'Zoom level at or above which tile edges are smoothed'
+        imageLoaderLimit:
+          type: integer
+          label: 'Maximum concurrent image requests (0 = unlimited)'
+        maxImageCacheCount:
+          type: integer
+          label: 'Maximum number of images to keep in the tile cache'
+        timeout:
+          type: integer
+          label: 'Tile request timeout in milliseconds'
+        tileSize:
+          type: integer
+          label: 'Default tile size in pixels (used when info.json is unavailable)'
+        crossOriginPolicy:
+          type: string
+          label: 'CORS policy for tile requests ("Anonymous", "use-credentials", or FALSE to disable)'
+        ajaxWithCredentials:
+          type: boolean
+          label: 'Send credentials with AJAX tile requests'
+
+        # ── Initial view / rotation ───────────────────────────────────────
+        defaultZoomLevel:
+          type: float
+          label: 'Initial zoom level (0 = fit to viewer)'
+        degrees:
+          type: integer
+          label: 'Initial rotation in degrees'
+        homeFillsViewer:
+          type: boolean
+          label: 'Home zoom fills the viewer rather than showing the whole image'
+
+        # ── Zoom constraints ──────────────────────────────────────────────
+        minZoomLevel:
+          type: string
+          label: 'Minimum zoom level (leave empty for no minimum)'
+        maxZoomLevel:
+          type: string
+          label: 'Maximum zoom level (leave empty for no maximum)'
+        minZoomImageRatio:
+          type: float
+          label: 'Minimum ratio of image size to viewport size when zooming out'
+        maxZoomPixelRatio:
+          type: float
+          label: 'Maximum ratio of a tile pixel to a screen pixel when zooming in'
+        visibilityRatio:
+          type: float
+          label: 'Proportion of the viewport that must remain filled by the image (0–1)'
+
+        # ── Pan constraints ───────────────────────────────────────────────
+        panHorizontal:
+          type: boolean
+          label: 'Allow horizontal panning'
+        panVertical:
+          type: boolean
+          label: 'Allow vertical panning'
+        constrainDuringPan:
+          type: boolean
+          label: 'Constrain panning so the image cannot leave the viewport during drag'
+        wrapHorizontal:
+          type: boolean
+          label: 'Wrap the image horizontally (tiling)'
+        wrapVertical:
+          type: boolean
+          label: 'Wrap the image vertically (tiling)'
+
+        # ── Auto-resize ───────────────────────────────────────────────────
+        autoResize:
+          type: boolean
+          label: 'Automatically resize the viewer when the browser window changes size'
+        preserveImageSizeOnResize:
+          type: boolean
+          label: 'Preserve the apparent image size when the viewer is resized'
+
+        # ── Controls / UI fade ────────────────────────────────────────────
+        autoHideControls:
+          type: boolean
+          label: 'Automatically hide navigation controls when the mouse leaves the viewer'
+        controlsFadeDelay:
+          type: integer
+          label: 'Milliseconds to wait before fading controls after the mouse leaves'
+        controlsFadeLength:
+          type: integer
+          label: 'Milliseconds over which the controls fade out'
+
+        # ── Zoom and animation rates ──────────────────────────────────────
+        zoomPerClick:
+          type: float
+          label: 'Zoom factor applied on each click-to-zoom action'
+        zoomPerScroll:
+          type: float
+          label: 'Zoom factor applied per scroll wheel tick'
+        zoomPerSecond:
+          type: float
+          label: 'Maximum zoom change per second during animated zoom'
+        springStiffness:
+          type: float
+          label: 'Spring stiffness for animated pan/zoom transitions'
+        animationTime:
+          type: float
+          label: 'Target animation duration in seconds'
+
+        # ── Click / double-click thresholds ───────────────────────────────
+        clickTimeThreshold:
+          type: integer
+          label: 'Maximum milliseconds between pointer-down and pointer-up to count as a click'
+        clickDistThreshold:
+          type: integer
+          label: 'Maximum pointer movement in pixels to still count as a click'
+        dblClickTimeThreshold:
+          type: integer
+          label: 'Maximum milliseconds between two clicks to count as a double-click'
+        dblClickDistThreshold:
+          type: integer
+          label: 'Maximum distance between two clicks to count as a double-click'
+
+        # ── Scroll performance ────────────────────────────────────────────
+        minScrollDeltaTime:
+          type: integer
+          label: 'Minimum milliseconds between handled scroll events'
+        pixelsPerWheelLine:
+          type: integer
+          label: 'Pixels per wheel line (for line-based scroll devices)'
+
+        # ── Gesture settings (per input type) ────────────────────────────
+        gestureSettingsMouse:
+          type: openseadragon.gesture_settings
+          label: 'Gesture settings for mouse input'
+        gestureSettingsTouch:
+          type: openseadragon.gesture_settings
+          label: 'Gesture settings for touch input'
+        gestureSettingsPen:
+          type: openseadragon.gesture_settings
+          label: 'Gesture settings for pen / stylus input'
+        gestureSettingsUnknown:
+          type: openseadragon.gesture_settings
+          label: 'Gesture settings for unknown pointer type'
+
+        # ── Mouse navigation ──────────────────────────────────────────────
+        mouseNavEnabled:
+          type: boolean
+          label: 'Enable mouse-based navigation (pan and zoom)'
+
+        # ── Navigation control toolbar ────────────────────────────────────
+        showNavigationControl:
+          type: boolean
+          label: 'Show the navigation control toolbar'
+        navigationControlAnchor:
+          type: string
+          label: 'Anchor position for the navigation toolbar (e.g. TOP_LEFT, BOTTOM_RIGHT)'
+        showZoomControl:
+          type: boolean
+          label: 'Show zoom-in / zoom-out buttons'
+        showHomeControl:
+          type: boolean
+          label: 'Show the home (reset view) button'
+        showFullPageControl:
+          type: boolean
+          label: 'Show the full-page toggle button'
+        showRotationControl:
+          type: boolean
+          label: 'Show the rotate clockwise / anti-clockwise buttons'
+
+        # ── Mini-map navigator ────────────────────────────────────────────
+        showNavigator:
+          type: boolean
+          label: 'Show the mini-map navigator overlay'
+        navigatorPosition:
+          type: string
+          label: 'Anchor position for the navigator (e.g. TOP_RIGHT)'
+        navigatorSizeRatio:
+          type: float
+          label: 'Navigator size as a fraction of the viewer size'
+        navigatorMaintainSizeRatio:
+          type: boolean
+          label: 'Keep the navigator size ratio when the viewer is resized'
+        navigatorTop:
+          type: string
+          label: 'CSS top value for the navigator (e.g. "10px"; empty = use anchor)'
+        navigatorLeft:
+          type: string
+          label: 'CSS left value for the navigator (empty = use anchor)'
+        navigatorHeight:
+          type: string
+          label: 'CSS height of the navigator (empty = auto)'
+        navigatorWidth:
+          type: string
+          label: 'CSS width of the navigator (empty = auto)'
+        navigatorAutoFade:
+          type: boolean
+          label: 'Fade the navigator when the pointer leaves the viewer'
+        navigatorRotate:
+          type: boolean
+          label: 'Rotate the navigator to match the main viewer rotation'
+
+        # ── Sequence / paged mode ─────────────────────────────────────────
+        sequenceMode:
+          type: boolean
+          label: 'Enable sequence (paged) mode when multiple tile sources are provided'
+        showSequenceControl:
+          type: boolean
+          label: 'Show previous / next page buttons in sequence mode'
+        sequenceControlAnchor:
+          type: string
+          label: 'Anchor position for the sequence control (e.g. TOP_LEFT)'
+        navPrevNextWrap:
+          type: boolean
+          label: 'Wrap around from last page to first (and vice-versa)'
+        initialPage:
+          type: integer
+          label: 'Zero-based index of the page to show on first load'
+        preserveViewport:
+          type: boolean
+          label: 'Preserve zoom and pan when navigating between pages'
+        preserveOverlays:
+          type: boolean
+          label: 'Preserve overlays when navigating between pages'
+
+        # ── Reference strip ───────────────────────────────────────────────
+        showReferenceStrip:
+          type: boolean
+          label: 'Show the filmstrip reference strip in sequence mode'
+        referenceStripScroll:
+          type: string
+          label: 'Scroll direction of the reference strip ("horizontal" or "vertical")'
+        referenceStripPosition:
+          type: string
+          label: 'Anchor position for the reference strip (e.g. BOTTOM_LEFT)'
+        referenceStripSizeRatio:
+          type: float
+          label: 'Reference strip size as a fraction of the viewer dimension'
+        referenceStripHeight:
+          type: string
+          label: 'Explicit height for the reference strip (empty = auto)'
+        referenceStripWidth:
+          type: string
+          label: 'Explicit width for the reference strip (empty = auto)'
+
+        # ── Collection mode ───────────────────────────────────────────────
+        collectionMode:
+          type: boolean
+          label: 'Display all tile sources simultaneously as a collection grid'
+        collectionRows:
+          type: integer
+          label: 'Number of rows in collection mode (ignored if collectionColumns > 0)'
+        collectionColumns:
+          type: integer
+          label: 'Number of columns in collection mode (0 = derive from rows)'
+        collectionLayout:
+          type: string
+          label: 'Layout direction for collection mode ("horizontal" or "vertical")'
+        collectionTileSize:
+          type: integer
+          label: 'Viewport dimension (px) reserved for each image in collection mode'
+        collectionTileMargin:
+          type: integer
+          label: 'Margin (px) between images in collection mode'
     manifest_view:
       type: string
       label: The target manifest view
+    viewer_options:
+      type: mapping
+      label: 'Default OpenSeadragon viewer options'
+      mapping:
+
+        # ── Drupal-module-specific option ────────────────────────────────────
+        fit_to_aspect_ratio:
+          type: boolean
+          label: 'Fit viewer to image aspect ratio'
+
+        # ── Viewer chrome / accessibility ─────────────────────────────────
+        tabIndex:
+          type: integer
+          label: 'Tab index for the viewer canvas element'
+        debugMode:
+          type: boolean
+          label: 'Enable debug mode (draws tile borders and logs to console)'
+        debugGridColor:
+          type: string
+          label: 'Colour used for debug grid lines (CSS colour string)'
+
+        # ── Rendering / blending ──────────────────────────────────────────
+        blendTime:
+          type: float
+          label: 'Time in seconds to blend tiles into view'
+        alwaysBlend:
+          type: boolean
+          label: 'Always blend tiles (even first load)'
+        immediateRender:
+          type: boolean
+          label: 'Render tiles immediately without delay'
+        opacity:
+          type: float
+          label: 'Default opacity of the tiled image (0–1)'
+        compositeOperation:
+          type: string
+          label: 'Canvas composite operation (e.g. "source-over"; empty = browser default)'
+        placeholderFillStyle:
+          type: string
+          label: 'Fill style for tile placeholders while loading (colour, gradient, or empty)'
+        useCanvas:
+          type: boolean
+          label: 'Use the HTML5 canvas element for rendering'
+        minPixelRatio:
+          type: float
+          label: 'Minimum pixel ratio required to display a tile level'
+        smoothTileEdgesMinZoom:
+          type: float
+          label: 'Zoom level at or above which tile edges are smoothed'
+        imageLoaderLimit:
+          type: integer
+          label: 'Maximum concurrent image requests (0 = unlimited)'
+        maxImageCacheCount:
+          type: integer
+          label: 'Maximum number of images to keep in the tile cache'
+        timeout:
+          type: integer
+          label: 'Tile request timeout in milliseconds'
+        tileSize:
+          type: integer
+          label: 'Default tile size in pixels (used when info.json is unavailable)'
+        crossOriginPolicy:
+          type: string
+          label: 'CORS policy for tile requests ("Anonymous", "use-credentials", or FALSE to disable)'
+        ajaxWithCredentials:
+          type: boolean
+          label: 'Send credentials with AJAX tile requests'
+
+        # ── Initial view / rotation ───────────────────────────────────────
+        defaultZoomLevel:
+          type: float
+          label: 'Initial zoom level (0 = fit to viewer)'
+        degrees:
+          type: integer
+          label: 'Initial rotation in degrees'
+        homeFillsViewer:
+          type: boolean
+          label: 'Home zoom fills the viewer rather than showing the whole image'
+
+        # ── Zoom constraints ──────────────────────────────────────────────
+        minZoomLevel:
+          type: string
+          label: 'Minimum zoom level (leave empty for no minimum)'
+        maxZoomLevel:
+          type: string
+          label: 'Maximum zoom level (leave empty for no maximum)'
+        minZoomImageRatio:
+          type: float
+          label: 'Minimum ratio of image size to viewport size when zooming out'
+        maxZoomPixelRatio:
+          type: float
+          label: 'Maximum ratio of a tile pixel to a screen pixel when zooming in'
+        visibilityRatio:
+          type: float
+          label: 'Proportion of the viewport that must remain filled by the image (0–1)'
+
+        # ── Pan constraints ───────────────────────────────────────────────
+        panHorizontal:
+          type: boolean
+          label: 'Allow horizontal panning'
+        panVertical:
+          type: boolean
+          label: 'Allow vertical panning'
+        constrainDuringPan:
+          type: boolean
+          label: 'Constrain panning so the image cannot leave the viewport during drag'
+        wrapHorizontal:
+          type: boolean
+          label: 'Wrap the image horizontally (tiling)'
+        wrapVertical:
+          type: boolean
+          label: 'Wrap the image vertically (tiling)'
+
+        # ── Auto-resize ───────────────────────────────────────────────────
+        autoResize:
+          type: boolean
+          label: 'Automatically resize the viewer when the browser window changes size'
+        preserveImageSizeOnResize:
+          type: boolean
+          label: 'Preserve the apparent image size when the viewer is resized'
+
+        # ── Controls / UI fade ────────────────────────────────────────────
+        autoHideControls:
+          type: boolean
+          label: 'Automatically hide navigation controls when the mouse leaves the viewer'
+        controlsFadeDelay:
+          type: integer
+          label: 'Milliseconds to wait before fading controls after the mouse leaves'
+        controlsFadeLength:
+          type: integer
+          label: 'Milliseconds over which the controls fade out'
+
+        # ── Zoom and animation rates ──────────────────────────────────────
+        zoomPerClick:
+          type: float
+          label: 'Zoom factor applied on each click-to-zoom action'
+        zoomPerScroll:
+          type: float
+          label: 'Zoom factor applied per scroll wheel tick'
+        zoomPerSecond:
+          type: float
+          label: 'Maximum zoom change per second during animated zoom'
+        springStiffness:
+          type: float
+          label: 'Spring stiffness for animated pan/zoom transitions'
+        animationTime:
+          type: float
+          label: 'Target animation duration in seconds'
+
+        # ── Click / double-click thresholds ───────────────────────────────
+        clickTimeThreshold:
+          type: integer
+          label: 'Maximum milliseconds between pointer-down and pointer-up to count as a click'
+        clickDistThreshold:
+          type: integer
+          label: 'Maximum pointer movement in pixels to still count as a click'
+        dblClickTimeThreshold:
+          type: integer
+          label: 'Maximum milliseconds between two clicks to count as a double-click'
+        dblClickDistThreshold:
+          type: integer
+          label: 'Maximum distance between two clicks to count as a double-click'
+
+        # ── Scroll performance ────────────────────────────────────────────
+        minScrollDeltaTime:
+          type: integer
+          label: 'Minimum milliseconds between handled scroll events'
+        pixelsPerWheelLine:
+          type: integer
+          label: 'Pixels per wheel line (for line-based scroll devices)'
+
+        # ── Gesture settings (per input type) ────────────────────────────
+        gestureSettingsMouse:
+          type: openseadragon.gesture_settings
+          label: 'Gesture settings for mouse input'
+        gestureSettingsTouch:
+          type: openseadragon.gesture_settings
+          label: 'Gesture settings for touch input'
+        gestureSettingsPen:
+          type: openseadragon.gesture_settings
+          label: 'Gesture settings for pen / stylus input'
+        gestureSettingsUnknown:
+          type: openseadragon.gesture_settings
+          label: 'Gesture settings for unknown pointer type'
+
+        # ── Mouse navigation ──────────────────────────────────────────────
+        mouseNavEnabled:
+          type: boolean
+          label: 'Enable mouse-based navigation (pan and zoom)'
+
+        # ── Navigation control toolbar ────────────────────────────────────
+        showNavigationControl:
+          type: boolean
+          label: 'Show the navigation control toolbar'
+        navigationControlAnchor:
+          type: string
+          label: 'Anchor position for the navigation toolbar (e.g. TOP_LEFT, BOTTOM_RIGHT)'
+        showZoomControl:
+          type: boolean
+          label: 'Show zoom-in / zoom-out buttons'
+        showHomeControl:
+          type: boolean
+          label: 'Show the home (reset view) button'
+        showFullPageControl:
+          type: boolean
+          label: 'Show the full-page toggle button'
+        showRotationControl:
+          type: boolean
+          label: 'Show the rotate clockwise / anti-clockwise buttons'
+
+        # ── Mini-map navigator ────────────────────────────────────────────
+        showNavigator:
+          type: boolean
+          label: 'Show the mini-map navigator overlay'
+        navigatorPosition:
+          type: string
+          label: 'Anchor position for the navigator (e.g. TOP_RIGHT)'
+        navigatorSizeRatio:
+          type: float
+          label: 'Navigator size as a fraction of the viewer size'
+        navigatorMaintainSizeRatio:
+          type: boolean
+          label: 'Keep the navigator size ratio when the viewer is resized'
+        navigatorTop:
+          type: string
+          label: 'CSS top value for the navigator (e.g. "10px"; empty = use anchor)'
+        navigatorLeft:
+          type: string
+          label: 'CSS left value for the navigator (empty = use anchor)'
+        navigatorHeight:
+          type: string
+          label: 'CSS height of the navigator (empty = auto)'
+        navigatorWidth:
+          type: string
+          label: 'CSS width of the navigator (empty = auto)'
+        navigatorAutoFade:
+          type: boolean
+          label: 'Fade the navigator when the pointer leaves the viewer'
+        navigatorRotate:
+          type: boolean
+          label: 'Rotate the navigator to match the main viewer rotation'
+
+        # ── Sequence / paged mode ─────────────────────────────────────────
+        sequenceMode:
+          type: boolean
+          label: 'Enable sequence (paged) mode when multiple tile sources are provided'
+        showSequenceControl:
+          type: boolean
+          label: 'Show previous / next page buttons in sequence mode'
+        sequenceControlAnchor:
+          type: string
+          label: 'Anchor position for the sequence control (e.g. TOP_LEFT)'
+        navPrevNextWrap:
+          type: boolean
+          label: 'Wrap around from last page to first (and vice-versa)'
+        initialPage:
+          type: integer
+          label: 'Zero-based index of the page to show on first load'
+        preserveViewport:
+          type: boolean
+          label: 'Preserve zoom and pan when navigating between pages'
+        preserveOverlays:
+          type: boolean
+          label: 'Preserve overlays when navigating between pages'
+
+        # ── Reference strip ───────────────────────────────────────────────
+        showReferenceStrip:
+          type: boolean
+          label: 'Show the filmstrip reference strip in sequence mode'
+        referenceStripScroll:
+          type: string
+          label: 'Scroll direction of the reference strip ("horizontal" or "vertical")'
+        referenceStripPosition:
+          type: string
+          label: 'Anchor position for the reference strip (e.g. BOTTOM_LEFT)'
+        referenceStripSizeRatio:
+          type: float
+          label: 'Reference strip size as a fraction of the viewer dimension'
+        referenceStripHeight:
+          type: string
+          label: 'Explicit height for the reference strip (empty = auto)'
+        referenceStripWidth:
+          type: string
+          label: 'Explicit width for the reference strip (empty = auto)'
+
+        # ── Collection mode ───────────────────────────────────────────────
+        collectionMode:
+          type: boolean
+          label: 'Display all tile sources simultaneously as a collection grid'
+        collectionRows:
+          type: integer
+          label: 'Number of rows in collection mode (ignored if collectionColumns > 0)'
+        collectionColumns:
+          type: integer
+          label: 'Number of columns in collection mode (0 = derive from rows)'
+        collectionLayout:
+          type: string
+          label: 'Layout direction for collection mode ("horizontal" or "vertical")'
+        collectionTileSize:
+          type: integer
+          label: 'Viewport dimension (px) reserved for each image in collection mode'
+        collectionTileMargin:
+          type: integer
+          label: 'Margin (px) between images in collection mode'
 
 block.settings.openseadragon_block:
   type: block_settings
