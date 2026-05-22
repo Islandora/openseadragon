@@ -2,7 +2,7 @@
 
 /**
  * @file
- * post_update hooks for openseadragon.
+ * Contains post_update hooks for openseadragon.
  */
 
 /**
