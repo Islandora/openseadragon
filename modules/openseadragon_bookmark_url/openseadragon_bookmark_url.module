@@ -1,0 +1,17 @@
+<?php
+
+/**
+ * @file
+ * Attach bookmark-url.js.
+ */
+
+/**
+ * Attach openseadragon-bookmark-url.js to all pages.
+ *
+ * @todo: It would be good to target this better?
+ *
+ * {@inheritDoc}
+ */
+function openseadragon_bookmark_url_page_attachments(array &$page) {
+  $page['#attached']['library'][] = 'openseadragon_bookmark_url/openseadragon_bookmark_url';
+}

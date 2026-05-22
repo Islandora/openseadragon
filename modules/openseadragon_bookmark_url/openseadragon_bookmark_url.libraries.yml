@@ -1,0 +1,9 @@
+openseadragon_bookmark_url:
+  js:
+    js/drupal-openseadragon-bookmark-url.js: {}
+    js/openseadragon-bookmark-url.js: {}
+  dependencies:
+    - core/drupal
+    - core/once
+    - core/drupalSettings
+    - openseadragon/openseadragon

@@ -1,0 +1,7 @@
+name: 'OpenSeadragon Bookmark URL'
+type: module
+description: 'Wrapper for https://github.com/openseadragon/bookmark-url library'
+package: Media
+core_version_requirement: ^10 || ^11
+dependencies:
+  - openseadragon:openseadragon
