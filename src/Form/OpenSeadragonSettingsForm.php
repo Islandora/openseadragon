@@ -1073,7 +1073,7 @@ class OpenSeadragonSettingsForm extends ConfigFormBase {
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $config = $this->configFactory->getEditable('openseadragon.settings');
-    $this->normalizeSettings($form_state->getValue('openseadragon_settings'));
+    // $this->normalizeSettings($form_state->getValue('openseadragon_settings'));
     // Get default to match array formatting.
     $default_settings = $this->seadragonConfig->getDefaultSettings();
     $this->filterSettings($form_state->getValue('openseadragon_settings'), $default_settings);
@@ -1138,6 +1138,8 @@ class OpenSeadragonSettingsForm extends ConfigFormBase {
    *
    * @return array
    *   Normalized settings.
+   *
+   * @deprecated by expanded schema to be removed in future version.
    */
   private function normalizeSettings(array &$settings) {
     foreach ($settings as $key => $value) {
@@ -1154,6 +1156,8 @@ class OpenSeadragonSettingsForm extends ConfigFormBase {
    *
    * @return array|float|int|string
    *   The normalized setting.
+   *
+   * @deprecated by expanded schema to be removed in future version.
    */
   private function normalizeSetting($value) {
     if (is_array($value)) {
