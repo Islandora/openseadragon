@@ -1073,7 +1073,6 @@ class OpenSeadragonSettingsForm extends ConfigFormBase {
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $config = $this->configFactory->getEditable('openseadragon.settings');
-    // $this->normalizeSettings($form_state->getValue('openseadragon_settings'));
     // Get default to match array formatting.
     $default_settings = $this->seadragonConfig->getDefaultSettings();
     $this->filterSettings($form_state->getValue('openseadragon_settings'), $default_settings);
