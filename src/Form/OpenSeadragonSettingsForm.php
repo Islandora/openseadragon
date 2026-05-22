@@ -1073,11 +1073,9 @@ class OpenSeadragonSettingsForm extends ConfigFormBase {
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $config = $this->configFactory->getEditable('openseadragon.settings');
-
+    $this->normalizeSettings($form_state->getValue('openseadragon_settings'));
     // Get default to match array formatting.
     $default_settings = $this->seadragonConfig->getDefaultSettings();
-
-    $this->normalizeSettings($form_state->getValue('openseadragon_settings'), $default_settings);
     $this->filterSettings($form_state->getValue('openseadragon_settings'), $default_settings);
     $config->set('viewer_options', $form_state->getValue('openseadragon_settings'));
 
@@ -1141,12 +1139,9 @@ class OpenSeadragonSettingsForm extends ConfigFormBase {
    * @return array
    *   Normalized settings.
    */
-  private function normalizeSettings(array &$settings, $defaultSettings) {
+  private function normalizeSettings(array &$settings) {
     foreach ($settings as $key => $value) {
-      // Some settings keys are not present in default settings, e.g. navigatorOptions.
-      if (!is_null($defaultSettings) && isset($defaultSettings[$key])) {
-        $settings[$key] = $this->normalizeSetting($value, $defaultSettings[$key]);
-      }
+      $settings[$key] = $this->normalizeSetting($value);
     }
     return $settings;
   }
@@ -1157,17 +1152,14 @@ class OpenSeadragonSettingsForm extends ConfigFormBase {
    * @param mixed $value
    *   The setting to be normalized.
    *
-   * @return array|boolean|float|int|string
+   * @return array|float|int|string
    *   The normalized setting.
    */
-  private function normalizeSetting($value, $defaultSetting) {
+  private function normalizeSetting($value) {
     if (is_array($value)) {
-      return $this->normalizeSettings($value, $defaultSetting);
+      return $this->normalizeSettings($value);
     }
     elseif (filter_var($value, FILTER_VALIDATE_INT) !== FALSE) {
-      if (is_bool($defaultSetting)) {
-        return (boolean) $value;
-      }
       return (int) $value;
     }
     elseif (filter_var($value, FILTER_VALIDATE_FLOAT) !== FALSE) {
