@@ -2,6 +2,8 @@
 
 /**
  * Update configuration to match the new schema structure.
+ *
+ * {@inheritdoc}
  */
 function openseadragon_post_update_expand_config_data(&$sandbox) {
   $config_factory = \Drupal::configFactory();

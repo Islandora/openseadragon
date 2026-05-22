@@ -1133,13 +1133,13 @@ class OpenSeadragonSettingsForm extends ConfigFormBase {
   /**
    * Casts the settings to appropriate types so they work in javascript.
    *
+   * Deprecated by expanded schema to be removed in future version.
+   *
    * @param array $settings
    *   The Openseadragon settings to be normalized.
    *
    * @return array
    *   Normalized settings.
-   *
-   * Deprecated by expanded schema to be removed in future version.
    */
   private function normalizeSettings(array &$settings) {
     foreach ($settings as $key => $value) {
@@ -1151,13 +1151,13 @@ class OpenSeadragonSettingsForm extends ConfigFormBase {
   /**
    * Normalizes the given setting.
    *
+   * Deprecated by expanded schema to be removed in future version.
+   *
    * @param mixed $value
    *   The setting to be normalized.
    *
    * @return array|float|int|string
    *   The normalized setting.
-   *
-   * Deprecated by expanded schema to be removed in future version.
    */
   private function normalizeSetting($value) {
     if (is_array($value)) {
