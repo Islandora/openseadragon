@@ -1139,7 +1139,7 @@ class OpenSeadragonSettingsForm extends ConfigFormBase {
    * @return array
    *   Normalized settings.
    *
-   * @deprecated by expanded schema to be removed in future version.
+   * Deprecated by expanded schema to be removed in future version.
    */
   private function normalizeSettings(array &$settings) {
     foreach ($settings as $key => $value) {
@@ -1157,7 +1157,7 @@ class OpenSeadragonSettingsForm extends ConfigFormBase {
    * @return array|float|int|string
    *   The normalized setting.
    *
-   * @deprecated by expanded schema to be removed in future version.
+   * Deprecated by expanded schema to be removed in future version.
    */
   private function normalizeSetting($value) {
     if (is_array($value)) {
