@@ -1,6 +1,11 @@
 <?php
 
 /**
+ * @file
+ * post_update hooks for openseadragon.
+ */
+
+/**
  * Update configuration to match the new schema structure.
  *
  * {@inheritdoc}
