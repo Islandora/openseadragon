@@ -6,12 +6,18 @@
  */
 
 /**
- * Attach openseadragon-bookmark-url.js to all pages.
+ * Attach openseadragon_bookmark_url js if openseadragon_formatter used.
  *
- * @todo It would be good to target this better, e.g. load only when OSD is loaded.
+ * Implements hook_preprocess_HOOK().
  *
  * {@inheritDoc}
  */
-function openseadragon_bookmark_url_page_attachments(array &$page) {
-  $page['#attached']['library'][] = 'openseadragon_bookmark_url/openseadragon_bookmark_url';
+function openseadragon_bookmark_url_preprocess_field(&$variables) {
+  if (isset($variables['items'])) {
+    foreach ($variables['items'] as $item) {
+      if (isset($item['content']['#theme']) && $item['content']['#theme'] == 'openseadragon_formatter') {
+        $variables['#attached']['library'][] =  'openseadragon_bookmark_url/openseadragon_bookmark_url';
+      }
+    }
+  }
 }
