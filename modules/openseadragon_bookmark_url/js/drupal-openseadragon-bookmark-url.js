@@ -22,7 +22,18 @@
         // Use custom element #id if set.
         base = '#' + osdViewerId;
         once('openSeadragonViewerBookmarkURL', base, context).forEach(function () {
-          Drupal.openSeadragonViewer[base].bookmarkUrl();
+          // Load bookmark url, but without page tracking, to allow hash to be set.
+          Drupal.openSeadragonViewer[base].bookmarkUrl({trackPage: false});
+          if (window.location.hash === '') {
+            var hash =  settings.openseadragon[osdViewerId].openseadragonBookmarkUrl;
+            if (hash !== '') {
+              window.location.hash = hash;
+            }
+          }
+          // With hash set or not, once OSD loaded, begin page tracking.
+          Drupal.openSeadragonViewer[base].addOnceHandler('open', function(){
+            Drupal.openSeadragonViewer[base].bookmarkUrl({trackPage: true});
+          });
         });
       });
     }
