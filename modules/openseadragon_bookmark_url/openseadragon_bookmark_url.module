@@ -16,7 +16,7 @@ function openseadragon_bookmark_url_preprocess_field(&$variables) {
   if (isset($variables['items'])) {
     foreach ($variables['items'] as $item) {
       if (isset($item['content']['#theme']) && $item['content']['#theme'] == 'openseadragon_formatter') {
-        $variables['#attached']['library'][] =  'openseadragon_bookmark_url/openseadragon_bookmark_url';
+        $variables['#attached']['library'][] = 'openseadragon_bookmark_url/openseadragon_bookmark_url';
       }
     }
   }
