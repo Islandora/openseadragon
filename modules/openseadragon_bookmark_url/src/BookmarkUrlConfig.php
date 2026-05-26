@@ -10,21 +10,22 @@ use Drupal\Core\Config\ImmutableConfig;
 /**
  * Typed accessor service for openseadragon_bookmark_url.settings.
  *
- * Centralizes all reads of the submodule's config so that callers never
- * need to remember the config object name or key names, and so that the
- * config object is only loaded once per request.
- *
  * Usage (from a service or controller):
  * @code
- *   $bm_config = \Drupal::service('openseadragon_bookmark_url.config');
- *   $bundle = $bm_config->getBundle();
- *   $field  = $bm_config->getField();
+ *   $config = \Drupal::service('openseadragon_bookmark_url.config');
+ *   $bundle = $config->getBundle();
+ *   $field  = $config->getField();
  * @endcode
  */
 final class BookmarkUrlConfig {
 
   private const CONFIG_NAME = 'openseadragon_bookmark_url.settings';
 
+  /**
+   * The openseadragon bookmark url config.
+   *
+   * @var \Drupal\Core\Config\ImmutableConfig
+   */
   private ImmutableConfig $config;
 
   /**
