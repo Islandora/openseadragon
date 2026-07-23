@@ -2,7 +2,7 @@ name: Mirror to Drupal.org GitLab
 
 on:
   push:
-    branches: [2.x]
+    branches: [3.x]
     tags: '*'
 
 jobs:
