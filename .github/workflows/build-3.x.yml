@@ -13,7 +13,7 @@ concurrency:
 
 jobs:
   build:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     continue-on-error: false
     strategy:
       fail-fast: false
