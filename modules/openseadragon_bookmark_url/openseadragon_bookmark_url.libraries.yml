@@ -1,0 +1,23 @@
+plugin:
+  remote: https://github.com/openseadragon/bookmark-url
+  version: "0.0.5"
+  license:
+    name: BSD-3-Clause
+    url: https://github.com/openseadragon/bookmark-url/blob/master/LICENSE
+    gpl-compatible: true
+  js:
+    https://cdn.jsdelivr.net/gh/openseadragon/bookmark-url@13c534c6ad7078fa44675f23185b75ee760d659c/openseadragon-bookmark-url.js:
+      type: external
+      minified: false
+      attributes:
+        integrity: "sha256-RDZWd2DzG9Asb3Pf3U0UrC0wKEGVJaC3D00Z9mqN63w="
+        crossorigin: anonymous
+openseadragon_bookmark_url:
+  js:
+    js/drupal-openseadragon-bookmark-url.js: {}
+  dependencies:
+    - core/drupal
+    - core/once
+    - core/drupalSettings
+    - openseadragon/openseadragon
+    - openseadragon_bookmark_url/plugin

@@ -1,0 +1,5 @@
+services:
+  openseadragon_bookmark_url.config:
+    class: Drupal\openseadragon_bookmark_url\BookmarkUrlConfig
+    arguments:
+      - '@config.factory'

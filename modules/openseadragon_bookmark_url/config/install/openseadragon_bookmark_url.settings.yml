@@ -1,0 +1,5 @@
+# Default configuration for the OpenSeadragon Bookmark URL submodule.
+# These values are intentionally empty; an administrator must choose the
+# appropriate content type and field for their site via the settings form.
+bookmark_url_bundle: ''
+bookmark_url_field: ''

@@ -1,0 +1,22 @@
+# Schema for openseadragon_bookmark_url.settings config object.
+
+openseadragon_bookmark_url.settings:
+  type: config_object
+  label: 'OpenSeadragon Bookmark URL settings'
+  mapping:
+    bookmark_url_bundle:
+      type: string
+      label: 'Content type (bundle) machine name'
+      constraints:
+        # Must be a valid (media) bundle machine name or empty string.
+        Regex:
+          pattern: '/^[a-z0-9_]*$/'
+          message: 'The bundle must be a valid machine name (lowercase letters, digits, and underscores only).'
+
+    bookmark_url_field:
+      type: string
+      label: 'Field machine name that stores the bookmark URL'
+      constraints:
+        Regex:
+          pattern: '/^[a-z0-9_]*$/'
+          message: 'The field name must be a valid machine name (lowercase letters, digits, and underscores only).'
